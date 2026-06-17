@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel M — DevOps Engineer</title>
+  <meta name="description" content="Portfolio of Daniel M, DevOps Engineer." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Fixed background layer that stays put while content scrolls over it -->
+  <div class="fixed-bg" id="fixed-bg" aria-hidden="true"></div>
+
+  <!-- Progress indicator -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Nav dots for section jumping -->
+  <nav class="section-nav" id="section-nav">
+    <a href="#hero" class="nav-dot active" data-section="hero" aria-label="Hero"></a>
+    <a href="#about" class="nav-dot" data-section="about" aria-label="About"></a>
+    <a href="#skills" class="nav-dot" data-section="skills" aria-label="Skills"></a>
+    <a href="#projects" class="nav-dot" data-section="projects" aria-label="Projects"></a>
+    <a href="#resume" class="nav-dot" data-section="resume" aria-label="Resume"></a>
+    <a href="#contact" class="nav-dot" data-section="contact" aria-label="Contact"></a>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ===================== SECTION 1: HERO ===================== -->
+    <section id="hero" class="panel panel-hero" data-section="hero">
+      <div class="panel-inner">
+        <p class="meme-tag">"Yep, that's me."</p>
+        <h1 class="hero-title">Daniel M</h1>
+        <p class="hero-subtitle">DevOps Engineer — I automate the things you didn't know were manual.</p>
+        <div class="scroll-cue">
+          <span>scroll</span>
+          <div class="scroll-cue-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 2: ABOUT ===================== -->
+    <section id="about" class="panel panel-about" data-section="about">
+      <div class="panel-inner">
+        <p class="meme-tag">"Wait a minute... who are you?"</p>
+        <h2 class="section-title">About Me</h2>
+        <p class="section-body">
+          Placeholder bio goes here. Two sides of the same engineer — the one who
+          writes the code, and the one who makes sure it never goes down at 3am.
+          Replace this with your real story.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 3: SKILLS ===================== -->
+    <section id="skills" class="panel panel-skills" data-section="skills">
+      <div class="panel-inner">
+        <p class="meme-tag">"This is fine."</p>
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Actually, it is fine. I built the monitoring that told me so.</p>
+        <ul class="skills-grid" id="skills-grid">
+          <li class="skill-chip">Docker</li>
+          <li class="skill-chip">Kubernetes</li>
+          <li class="skill-chip">Terraform</li>
+          <li class="skill-chip">AWS</li>
+          <li class="skill-chip">CI/CD</li>
+          <li class="skill-chip">Linux</li>
+          <li class="skill-chip">Ansible</li>
+          <li class="skill-chip">Prometheus</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 4: PROJECTS ===================== -->
+    <section id="projects" class="panel panel-projects" data-section="projects">
+      <div class="panel-inner">
+        <p class="meme-tag">"It's not much, but it's honest work."</p>
+        <h2 class="section-title">Projects</h2>
+        <div class="project-cards" id="project-cards">
+          <article class="project-card">
+            <h3>Project One</h3>
+            <p>Short description of the problem this solved.</p>
+            <p class="project-stack">Docker · Terraform · AWS</p>
+            <a href="#" class="project-link">View →</a>
+          </article>
+          <article class="project-card">
+            <h3>Project Two</h3>
+            <p>Short description of the problem this solved.</p>
+            <p class="project-stack">Kubernetes · CI/CD</p>
+            <a href="#" class="project-link">View →</a>
+          </article>
+          <article class="project-card">
+            <h3>Project Three</h3>
+            <p>Short description of the problem this solved.</p>
+            <p class="project-stack">Ansible · Prometheus</p>
+            <a href="#" class="project-link">View →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 5: RESUME ===================== -->
+    <section id="resume" class="panel panel-resume" data-section="resume">
+      <div class="panel-inner">
+        <p class="meme-tag">"Allow us to introduce ourselves."</p>
+        <h2 class="section-title">Resume</h2>
+        <p class="section-body">A quick rundown of where I've been and what I've shipped.</p>
+        <a href="assets/pdf/resume.pdf" class="resume-download" download>
+          Download Resume (PDF)
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 6: CONTACT ===================== -->
+    <section id="contact" class="panel panel-contact" data-section="contact">
+      <div class="panel-inner">
+        <p class="meme-tag">"You had my curiosity. Now you have my attention."</p>
+        <h2 class="section-title">Let's Talk</h2>
+        <div class="contact-links">
+          <a href="mailto:hello@idanielm.com" class="contact-link">Email</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="contact-link">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

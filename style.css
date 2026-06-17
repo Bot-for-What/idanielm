@@ -1,0 +1,332 @@
+/* ============================================
+   ROOT VARIABLES — change these to retheme everything
+   ============================================ */
+:root {
+  --color-bg: #0a0e14;
+  --color-bg-alt: #11161f;
+  --color-text: #e8eaed;
+  --color-text-dim: #8b95a5;
+  --color-accent: #00ff9d;       /* terminal green */
+  --color-accent-dim: #00ff9d33;
+  --color-card: #151a23;
+  --color-border: #1f2630;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --panel-radius: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-display);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+/* ============================================
+   FIXED BACKGROUND LAYER
+   This sits behind everything and never scrolls —
+   creates the illusion that content moves over a static scene.
+   ============================================ */
+.fixed-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 20%, #0d2b22 0%, var(--color-bg) 60%);
+  background-attachment: fixed;
+}
+
+.fixed-bg::before {
+  /* subtle grid pattern, very DevOps/terminal */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.25;
+}
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--color-accent);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ============================================
+   SECTION NAV DOTS
+   ============================================ */
+.section-nav {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 90;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: 1px solid var(--color-text-dim);
+  transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent-dim);
+  transform: scale(1.3);
+}
+
+/* ============================================
+   PANELS — each "page" of the pop-up book
+   ============================================ */
+.panel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8vh 8vw;
+  position: relative;
+}
+
+.panel-inner {
+  max-width: 760px;
+  width: 100%;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--panel-radius);
+  padding: 56px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+
+  /* initial state for GSAP "pop" entrance — JS will animate to visible */
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+}
+
+/* ============================================
+   MEME TAG — the witty header line on each section
+   ============================================ */
+.meme-tag {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+
+.meme-tag::before {
+  content: "// ";
+  opacity: 0.6;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--color-text-dim);
+  max-width: 480px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.section-subtitle {
+  color: var(--color-text-dim);
+  margin-bottom: 28px;
+}
+
+.section-body {
+  color: var(--color-text-dim);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ============================================
+   SCROLL CUE (hero only)
+   ============================================ */
+.scroll-cue {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.scroll-cue-line {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   SKILLS GRID
+   ============================================ */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+}
+
+.skill-chip {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.skill-chip:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+   PROJECT CARDS
+   ============================================ */
+.project-cards {
+  display: grid;
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.project-card p {
+  color: var(--color-text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.project-stack {
+  font-family: var(--font-mono);
+  font-size: 0.8rem !important;
+  color: var(--color-accent) !important;
+}
+
+.project-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+}
+
+/* ============================================
+   RESUME DOWNLOAD BUTTON
+   ============================================ */
+.resume-download {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 28px;
+  background: var(--color-accent);
+  color: #06140f;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.resume-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px var(--color-accent-dim);
+}
+
+/* ============================================
+   CONTACT LINKS
+   ============================================ */
+.contact-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 12px 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.contact-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .panel-inner {
+    padding: 32px 24px;
+  }
+
+  .section-nav {
+    right: 14px;
+  }
+}
