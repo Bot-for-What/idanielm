@@ -3,7 +3,7 @@
 Personal portfolio for Daniel B M.
 
 ## Concept
-Is to allow people who acess the site, a fun way to get to know the creator of the website idaniel.com.
+Purpose of the website is to provide people a fun way to get to know the creator of the website [me] at idaniel.com.
 
 ## Structure
 - `index.html` — all sections (Hero, About, Skills, Projects, Resume, Contact)
