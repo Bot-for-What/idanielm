@@ -205,7 +205,7 @@
       opacity: 0.92;
     }
     .hero-welcome {
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       color: var(--dim);
       line-height: 1.7;
       max-width: 460px;
@@ -214,6 +214,7 @@
     .hero-welcome strong {
       color: var(--text);
       font-weight: 500;
+      font-size: small;
     }
     @media (min-width: 1024px) {
       .hero-image-wrap {
@@ -249,17 +250,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 60px 60px 13vw;
+      padding: 60px 10%;
     }
-    @media (min-width: 1024px) { .panel { padding: 60px 80px; } }
-    @media (max-width: 1440px) { .panel { padding: 40px 24px; } }
+    @media (min-width: 1024px) { .panel { padding: 60px 10%; } }
+    @media (max-width: 768px)  { .panel { padding: 40px 16px; } }
     .book-page {
       perspective: 1200px;
       width: 100%;
-      max-width: 1440px;
+      max-width: 80vw;
     }
-    @media (min-width: 1024px) { .book-page { max-width: 960px; } }
-    @media (min-width: 1440px) { .book-page { max-width: 1080px; } }
+    @media (min-width: 1024px) { .book-page { max-width: 80vw; } }
+    @media (min-width: 1440px) { .book-page { max-width: 80vw; } }
+    @media (max-width: 768px)  { .book-page { max-width: 100%; } }
     .page-inner {
       background: var(--card);
       border: 1px solid var(--border);
@@ -533,7 +535,18 @@
       .about-text { padding: 28px 24px; }
     }
     .cards { display: grid; gap: 16px; margin-top: 24px; }
-    @media (min-width: 1024px) { .cards { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) {
+      .cards { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    }
+    /* Each collapsed card is a flex column — link always pinned to bottom */
+    .card-collapsed {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .card-collapsed p    { flex: 1; } /* description grows to fill space */
+    .card-collapsed .stack { margin-top: auto; padding-top: 8px; }
+    .card-collapsed .card-link { margin-top: 8px; align-self: flex-start; }
     .card {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -825,7 +838,7 @@
             <p class="hero-welcome">
               Welcome to my site.<br><br>
               I could tell you what I do — but it's better if I show you.<br>
-              <strong>Fair warning: this may cause sudden urges to work together.</strong>
+              <span style="font-size: small;"> ⁞ </span><strong>Fair warning: this may cause sudden urges to work together.</strong>
             </p>
             <div class="scroll-hint"><div class="line"></div>scroll to continue</div>
           </div>
