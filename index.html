@@ -6,840 +6,8 @@
   <title>Daniel — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    :root {
-      --bg:     #0a0e14;
-      --bg2:    #111820;
-      --card:   #151c27;
-      --border: #1e2a3a;
-      --text:   #e8eaed;
-      --dim:    #7a8a9a;
-      --accent: #00ff9d;
-      --glow:   rgba(0,255,157,0.15);
-      --ff:     'Space Grotesk', sans-serif;
-      --mono:   'JetBrains Mono', monospace;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--ff);
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-    #scene {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 15% 15%, rgba(0,80,50,0.25) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 85% 85%, rgba(0,40,80,0.2) 0%, transparent 60%),
-        var(--bg);
-    }
-    #scene::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 52px 52px;
-      opacity: 0.3;
-    }
-    #scene::after {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,255,157,0.04) 0%, transparent 70%);
-      top: 10%; left: 30%;
-      animation: drift 12s ease-in-out infinite alternate;
-    }
-    @keyframes drift {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(40px,30px) scale(1.05); }
-    }
-    #progress {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px; width: 0%;
-      background: linear-gradient(90deg, #00c97a, var(--accent));
-      z-index: 999;
-    }
-    body.light {
-      --bg:     #f0f4f8;
-      --bg2:    #e2e8f0;
-      --card:   #ffffff;
-      --border: #cbd5e1;
-      --text:   #1a202c;
-      --dim:    #4a5568;
-      --accent: #00875a;
-      --glow:   rgba(0,135,90,0.15);
-    }
-    body.light #scene {
-      background:
-        radial-gradient(ellipse 80% 60% at 15% 15%, rgba(0,135,90,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 85% 85%, rgba(0,80,160,0.06) 0%, transparent 60%),
-        var(--bg);
-    }
-    body.light .dl-btn {
-      background: #34c78a;      /* lighter, fresher mint-green */
-      color: #0a2e1f;
-    }
-    body.light .dl-btn:hover {
-      box-shadow: 0 16px 32px rgba(52,199,138,0.25);
-    }
-    #theme-toggle {
-      position: fixed;
-      right: 15px;
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
-      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
-      padding: 0;
-      z-index: 998;
-      line-height: 1;
-    }
-    #theme-toggle:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--glow);
-    }
-    #nav {
-      position: fixed;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      z-index: 998;
-    }
-    .dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--border);
-      border: 1.5px solid var(--dim);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    .dot::after {
-      content: attr(data-label);
-      position: absolute;
-      right: 20px; top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--dim);
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-    .dot:hover::after { opacity: 1; }
-    .dot.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px var(--glow);
-      transform: scale(1.4);
-    }
-    .hero-body {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 0;
-      align-items: stretch;
-      min-height: 460px;
-    }
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-right: 32px;
-      z-index: 2;
-      position: relative;
-    }
-    .hero-intro {
-      font-size: 1.1rem;
-      color: var(--dim);
-      margin-bottom: 2px;
-      font-family: var(--ff);
-    }
-    .hero-image-wrap {
-      position: relative;
-      width: 340px;
-      margin: -56px -60px -56px 0;
-      overflow: hidden;
-      border-radius: 0 20px 20px 0;
-      flex-shrink: 0;
-    }
-    .hero-image-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--card) 0%, transparent 35%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-image-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 80px;
-      background: linear-gradient(to top, var(--card), transparent);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      opacity: 0.92;
-    }
-    .hero-welcome {
-      font-size: 1.25rem;
-      color: var(--dim);
-      line-height: 1.7;
-      max-width: 460px;
-      margin-bottom: 36px;
-      margin-right: 2%;
-    }
-    .hero-welcome strong {
-      color: var(--text);
-      font-weight: 500;
-      font-size: small;
-    }
-    @media (min-width: 1024px) {
-      .hero-image-wrap {
-        width: 380px;
-        margin: -72px -80px -72px 0px;
-      }
-    }
-    @media (max-width: 768px) {
-      .hero-body {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        min-height: unset;
-      }
-      .hero-image-wrap {
-        width: calc(100% + 48px);
-        height: 220px;
-        margin: -56px -24px 24px -24px;
-        border-radius: 20px 20px 0 0;
-      }
-      .hero-text { padding-right: 0; order: 2; }
-      .hero-image-wrap { order: 1; }
-      h1 { font-size: clamp(2rem, 10vw, 3rem);}
-      .hero-welcome {
-        font-size: 0.92rem;
-        margin-bottom: 24px;
-        max-width: 100%;
-      }
-      .hero-warning{margin-left: 5px;}
-      .meme { font-size: 0.75rem; }
-    }
-    #main { position: relative; z-index: 10; }
-    .panel {
-      min-height:min-content;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2% 10%;
-    }
-    #contact.panel {
-      min-height: unset;
-      align-items: flex-start;
-      padding-top: 2%;
-      padding-bottom: 80px;
-    }
-    @media (min-width: 1024px) { .panel { padding: 2% 10%; } }
-    @media (max-width: 768px)  { .panel { padding: 40px 16px; } }
-    .book-page {
-      perspective: 1200px;
-      width: 100%;
-      max-width: 80vw;
-    }
-    @media (min-width: 1024px) { .book-page { max-width: 80vw; } }
-    @media (min-width: 1440px) { .book-page { max-width: 80vw; } }
-    @media (max-width: 768px)  { .book-page { max-width: 100%; } }
-    .page-inner {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 30px 60px;
-      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
-      position: relative;
-      overflow: hidden;
-    }
-    @media (min-width: 1024px) { .page-inner { padding: 72px 80px; } }
-    @media (max-width: 768px) { .page-inner { padding: 32px 22px; } }
-    .meme {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      color: var(--accent);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .meme::before { content: '//'; opacity: 0.5; }
-    h1 {
-      font-size: clamp(3.2rem, 7vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-    h1 span { color: var(--accent); }
-    .tagline {
-      font-size: 1.1rem;
-      color: var(--dim);
-      max-width: 500px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-    h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .body-text {
-      color: var(--dim);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 580px;
-    }
-    @media (min-width: 1024px) { .body-text { font-size: 1.15rem; max-width: 680px; } }
-    .scroll-hint {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--dim);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-    .scroll-hint .line {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 0.2; }
-      50%      { opacity: 1; }
-    }
-    .app-chip-hidden { display: none; }
-    .app-chips.expanded .app-chip-hidden { display: inline-flex; }
-    .show-more-btn {
-      margin-top: 10px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .show-more-btn:hover { opacity: 1; }
-    .show-more-arrow { display: inline-block; transition: transform 0.3s ease; }
-    .show-more-btn.open .show-more-arrow { transform: rotate(180deg); }
-    .skills-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 8px;
-    }
-    .skills-header-text { flex: 1; min-width: 0; }
-    .skills-image-wrap {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      flex-shrink: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-    }
-    .skills-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      display: block;
-    }
-    .skills-subtitle {
-      color: var(--dim);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-top: 6px;
-      margin-bottom: 8px;
-    }
-    .skill-group { margin-top: 28px; }
-    .skill-group-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
-      opacity: 0.75;
-      text-align: center;
-    }
-    .chip-bubble {
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%) scale(0.92);
-      background: var(--card);
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-family: var(--ff);
-      font-size: 0.8rem;
-      color: var(--text);
-      line-height: 1.5;
-      width: 220px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px var(--glow);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 300;
-      white-space: normal;
-    }
-    .chip-bubble::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: var(--accent);
-    }
-    .chip-bubble.visible {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-    .chip.highlighted {
-      border-color: var(--accent);
-      box-shadow: 0 0 16px var(--glow);
-      color: var(--accent);
-    }
-    .chip { position: relative; cursor: pointer; }
-    @media (max-width: 768px) {
-      .skills-header { flex-direction: column-reverse; }
-      .skills-image-wrap { width: 100%; height: 160px; }
-    }
-    .skills-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
-    }
-    @media (min-width: 1024px) { .skills-wrap { gap: 14px; } }
-    .chip {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      padding: 9px 18px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg2);
-      color: var(--text);
-      opacity: 0;
-      transform: translateY(12px);
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s, opacity 0.4s;
-    }
-    @media (min-width: 1024px) { .chip { font-size: 0.95rem; padding: 11px 22px; } }
-    .chip.is-open { opacity: 1; transform: translateY(0); }
-    .chip:hover { border-color: var(--accent); box-shadow: 0 0 12px var(--glow); transform: translateY(-3px); }
-    .panel-about .page-inner { padding: 0; overflow: hidden; }
-    .about-body {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 0;
-      align-items: stretch;
-      min-height: 500px;
-    }
-    .about-image-wrap {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px 0 0 20px;
-    }
-    .about-image-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to left, var(--card) 0%, transparent 40%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .about-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      opacity: 0.92;
-    }
-    .about-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 48px 48px 48px 32px;
-      z-index: 2;
-      position: relative;
-      overflow-y: auto;
-    }
-    .about-location {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--dim);
-      margin-bottom: 16px;
-    }
-    .about-location::before { content: '◎'; color: var(--accent); font-size: 0.7rem; }
-    .about-copy { font-size: 0.92rem; color: var(--dim); line-height: 1.8; margin-bottom: 24px; }
-    .about-copy p + p { margin-top: 12px; }
-    .running-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 10px;
-      opacity: 0.7;
-    }
-    .app-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .app-chip {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 4px 11px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg2);
-      color: var(--dim);
-      transition: border-color 0.25s, color 0.25s;
-    }
-    .app-chip:hover { border-color: var(--accent); color: var(--text); }
-    @media (min-width: 1024px) { .about-body { grid-template-columns: 340px 1fr; } }
-    @media (max-width: 768px) {
-      .about-body { grid-template-columns: 1fr; min-height: unset; }
-      .about-image-wrap { height: 280px; border-radius: 20px 20px 0 0; }
-      .about-text { padding: 28px 24px; }
-    }
-    .cards { display: grid; gap: 16px; margin-top: 24px; }
-    @media (min-width: 1024px) {
-      .cards { grid-template-columns: 1fr 1fr; align-items: stretch; }
-    }
-    /* Each collapsed card is a flex column — link always pinned to bottom */
-    .card-collapsed {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .card-collapsed p    { flex: 1; } /* description grows to fill space */
-    .card-collapsed .stack { margin-top: auto; padding-top: 8px; }
-    .card-collapsed .card-link { margin-top: 8px; align-self: flex-start; }
-    .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px 28px;
-      opacity: 0;
-      transform: translateX(-24px);
-      transition: border-color 0.25s, transform 0.5s, opacity 0.5s, grid-column 0.1s;
-      overflow: hidden;
-    }
-    .card.is-open { opacity: 1; transform: translateX(0); }
-    .card:hover { border-color: var(--accent); }
-    @media (min-width: 1024px) { .card.expanded { grid-column: 1 / -1; } }
-    .card h3 { font-size: 1.1rem; margin-bottom: 4px; line-height: 1.3; }
-    .card-subtitle {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      opacity: 0.75;
-      margin-bottom: 10px !important;
-    }
-    .card p { color: var(--dim); font-size: 0.9rem; margin-bottom: 10px; line-height: 1.5; }
-    .stack { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 4px; }
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-      cursor: pointer;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      padding: 0 0 2px 0;
-    }
-    .card-link .arrow { transition: transform 0.3s ease; display: inline-block; }
-    .card.expanded .card-link .arrow { transform: rotate(-90deg); }
-    .card-detail-inner { display: flex; flex-direction: column; gap: 16px; }
-    @media (min-width: 1024px) {
-      .card-detail-inner { flex-direction: row; align-items: flex-start; gap: 28px; }
-      .card-detail-text-col { flex: 1.3; }
-      .card-detail-image-col { flex: 1; }
-    }
-    .card-detail-text { color: var(--dim); font-size: 0.88rem; line-height: 1.7; margin-bottom: 4px; }
-    .card-detail { display: none; }
-    .card.expanded .card-detail { display: block; }
-    .card.expanded .card-collapsed { display: none; }
-    .card-section-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      opacity: 0.75;
-      margin-top: 16px;
-      margin-bottom: 6px;
-    }
-    .card-link-hide { margin-top: 18px; display: block; }
-    .card-screenshot {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      display: block;
-      background: var(--bg);
-      min-height: 120px;
-      object-fit: cover;
-      margin-bottom: 12px;
-    }
-    .card-screenshot-placeholder {
-      width: 100%;
-      min-height: 140px;
-      border-radius: 10px;
-      border: 1px dashed var(--border);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--dim);
-      text-align: center;
-      padding: 16px;
-      background: var(--bg);
-    }
-    .resume-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-    .resume-header-text { flex: 1; }
-    .resume-image-wrap {
-      width: 200px;
-      height: 200px;
-      flex-shrink: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-      margin-right: 3%;
-    }
-    .resume-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit:contain;
-      object-position: right 15%;
-    }
-    .timeline { position: relative; padding-left: 28px; margin-bottom: 36px; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px; top: 6px; bottom: 6px;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      opacity: 0.4;
-    }
-    .timeline-item { position: relative; margin-bottom: 32px; }
-    .timeline-item:last-child { margin-bottom: 0; }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -25px; top: 6px;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px var(--glow);
-    }
-    .timeline-item.current::before { animation: dotPulse 2s ease-in-out infinite; }
-    @keyframes dotPulse {
-      0%, 100% { box-shadow: 0 0 0 3px var(--glow); }
-      50%       { box-shadow: 0 0 0 6px var(--glow); }
-    }
-    .timeline-dates { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); opacity: 0.7; margin-bottom: 4px; }
-    .timeline-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-    .timeline-company { font-size: 0.88rem; color: var(--dim); margin-bottom: 2px; }
-    .timeline-unit { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); opacity: 0.6; margin-bottom: 8px; }
-    .timeline-footer {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--dim);
-      opacity: 0.6;
-      margin-bottom: 28px;
-      padding-left: 28px;
-    }
-    .career-footer {
-      margin-bottom: 28px;
-      padding-left: 28px;
-      position: relative;
-    }
-    /* Dot — same position and size as timeline-item dots */
-    .career-footer::before {
-      content: '';
-      position: absolute;
-      left: -25px;
-      top: 6px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(122,138,154,0.12);
-      opacity: 0.6;
-    }
-    .career-toggle {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--dim);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0 0 0 16px;
-      display: flex;
-      align-items:center;
-      gap: 6px;
-      opacity: 0.95;
-      transition: opacity 0.2s, color 0.2s;
-      position:sticky;
-          }
-    .career-toggle::before {
-      content: '→';
-      opacity: 1;
-      position: absolute;
-      top: 15;
-      left: 0;
-      transition: transform 0.3s ease;
-      color: var(--dim);
-      font-size: medium;
-      align-items:center;
-      animation: pulse 3s ease-in-out infinite;
-      color: var(--accent);
-    }
-
-    .career-toggle.open::before { transform: rotate(90deg); }
-    .career-toggle:hover {
-      opacity: 1;
-      color: var(--accent);
-      text-shadow: 0 0 12px var(--glow);
-    }
-    .career-toggle:hover::before {
-      text-shadow: 0 0 8px var(--accent);
-    }
-    #resume.panel {
-      min-height: unset;
-      padding-top: 2%;
-      padding-bottom: 2rem;
-    }
-    .career-arrow {
-      display:inline-block;
-      transition: transform 0.3s ease;
-      font-size: 1rem;
-      animation: pulse 3s ease-in-out infinite;
-      color: var(--accent);
-    }
-    .career-toggle.open .career-arrow { transform: rotate(180deg); }
-    .career-extra {
-      display: none;
-      margin-top: 14px;
-      padding-left: 4px;
-      border-left: 1px solid var(--border);
-      padding-left: 14px;
-    }
-    .career-extra.open { display: block; }
-    .career-item {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .career-item:last-child { margin-bottom: 0; }
-    .career-dates {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--accent);
-      opacity: 0.6;
-      white-space: nowrap;
-    }
-    .career-role {
-      font-size: 0.82rem;
-      color: var(--text);
-      font-weight: 500;
-    }
-    .career-company {
-      font-size: 0.78rem;
-      color: var(--dim);
-    }
-    .career-company::before { content: '·'; margin-right: 6px; opacity: 0.4; }
-    .dl-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      background: var(--accent);
-      color: #051a0f;
-      font-family: var(--mono);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .dl-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 32px var(--glow); }
-    @media (max-width: 768px) {
-      .resume-header { flex-direction: row; align-items: flex-start; }
-      .resume-image-wrap {
-      width: 140px;
-      height: 140px;}
-    }
-    .contact-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px;}
-    .c-link {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      padding: 13px 26px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      text-decoration: none;
-      transition: border-color 0.25s, color 0.25s, box-shadow 0.25s;
-    }
-    .c-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 16px var(--glow); }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
 </head>
 <body>
   <div id="scene"></div>
@@ -858,8 +26,8 @@
       <div class="book-page"><div class="page-inner">
         <div class="hero-body">
           <div class="hero-text">
-            <p class="meme">"Yep, that's me. You're probably wondering how I ended up in this situation."</p>
-            <p class="hero-intro">Hi, I'm</p>
+            
+            <p class="hero-intro">Hi, I'm</p><br>
             <h1>Daniel B<br><span>Marbaniang</span></h1>
             <p class="hero-welcome">
               Welcome to my site.<br><br>
@@ -881,14 +49,14 @@
             <img src="assets/images/cards/about.png" alt="caught mid-task, looking up surprised" loading="lazy" />
           </div>
           <div class="about-text">
-            <p class="meme">"Wait a minute... who are you?"</p>
+            <p class="meme">Origin Story…</p>
             <h2>About Me</h2>
-            <p class="about-location">Based in Guwahati, originally from Shillong</p>
+            <p class="about-location">Currently based in Guwahati.</p>
             <div class="about-copy">
               <p>It all started with a love for making things work better — and once that door opened, there was no closing it.</p>
-              <p>What began as basic Excel quickly grew into something else entirely. A shared network downtime tracker used across multiple units. A patient journey turnaround sheet pulling live data from different departments. Print job counters, vendor ticket trackers, radiology and lab machine usage reports — all built because someone had a manual process and I couldn't help but wonder if there was a better way. Then a senior colleague showed me Active Directory Server Policies, and something clicked harder. Scripts, Group Policies, print server management, login trackers — each one a new puzzle, each solution a reason to go deeper.</p>
-              <p>At my current company, I fell headfirst into Docker and the world of open source software. What started as a Google Form with a Telegram integration became a self-hosted ecosystem of 19 actively maintained applications — DNS management, internal domain routing, asset tracking, a ticketing system, media signage across the building, a reception call log, document automation across departments.</p>
-              <p>Nobody told me to do any of it. But noticing the pain points of the people around you — and quietly making them disappear — that's a satisfaction of a different level.</p>
+              <p>What began as formulated Excel sheets quickly grew into something else entirely. A shared network downtime tracker used across multiple units. A patient journey turnaround sheet pulling live data from different departments. Print job counters, vendor ticket trackers, radiology and lab machine usage reports — all built because someone had a manual process and I couldn't help but wonder if there was a better way. Then a senior colleague showed me Active Directory Server Policies, and something clicked. Scripts, Group Policies, print server management, login trackers — each one a new puzzle, each solution a reason to go deeper.</p>
+              <p>Soon after, I fell headfirst into Docker and the world of open source software. Form a rudimentary idea of using Google Form with a Telegram integration as a Service Request system became a self-hosted ecosystem of 19 actively maintained applications — DNS management, internal domain routing, asset tracking, a ticketing system, building-wide media signage, a reception call log, document automation. Alongside this, I oversee HMIS, PACS, and lab equipment integration across clinical systems.</p>
+              <p>Nobody told me to do any of it. But noticing the pain points of the people around you — and quietly making them disappear is a satisfaction of a different level.</p>
             </div>
             <p class="running-label">‖ currently running</p>
             <div class="app-chips">
@@ -923,7 +91,7 @@
       <div class="book-page"><div class="page-inner">
         <div class="skills-header">
           <div class="skills-header-text">
-            <p class="meme">"This is fine." — Actually, it is. I built the monitoring.</p>
+            <p class="meme">Fruits of Labour…</p>
             <h2>Skills</h2>
             <p class="skills-subtitle">Jack of just enough trades. I learn exactly what a problem needs, solve it, then move to the next one.</p>
           </div>
@@ -975,17 +143,27 @@
             <span class="chip" data-info="Business intelligence tool for building internal dashboards and reports from live data.">Metabase</span>
           </div>
         </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// healthcare systems</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Hospital Management Information System. Provided training, handled issues and vendor co-ordination.">HMIS</span>
+            <span class="chip" data-info="Picture Archiving and Communication System. Vendor co-ordination for integration, maintain operational status, backup and report generation.">PACS</span>
+            <span class="chip" data-info="Electronic Health Record. Vendor co-ordination and report generation.">EHR</span>
+            <span class="chip" data-info="Multiple vendor co-ordination during integration process. Provided user training and report generation.">Lab Equipment Integration</span>
+            <span class="chip" data-info="Created formula-driven sheets to solve niche hinderances and report submission in Excel. Timely presentations in PowerPoint.">Microsoft 365</span>
+          </div>
+        </div>
       </div></div>
     </section>
     <section class="panel" id="projects">
       <div class="book-page"><div class="page-inner">
-        <p class="meme">"It's not much, but it's honest work."</p>
+        <p class="meme">Problems that needed fixing…</p>
         <h2>Projects</h2>
         <div class="cards" id="project-cards">
           <div class="card">
             <div class="card-collapsed">
               <h3>Naming Convention vs. Remembering IP Addresses</h3>
-              <p>Internal apps lived at random IPs and ports — nobody could remember which. Built a proper internal DNS so every app gets a clean, memorable address.</p>
+              <p>Internal apps lived at random IPs and ports — which nobody could remember. Built an internal DNS so every app gets a clean, memorable address.</p>
               <div class="stack">Technitium DNS · Caddy · Docker</div>
               <button class="card-link" type="button">View project <span class="arrow">→</span></button>
             </div>
@@ -1009,19 +187,19 @@
           </div>
           <div class="card">
             <div class="card-collapsed">
-              <h3>Where Did That Call Even Go?</h3>
-              <p>Front desk had no structured way to log incoming calls. Set up a CRM so every call gets tracked, searchable, and accountable.</p>
+              <h3>Where Did That Call Go?</h3>
+              <p>The Front desk had no structured way to log incoming calls reliably. Set up a CRM so every incoming call gets tracked, searchable, and accountable.</p>
               <div class="stack">EspoCRM · Docker · MySQL</div>
               <button class="card-link" type="button">View project <span class="arrow">→</span></button>
             </div>
             <div class="card-detail">
               <div class="card-detail-inner">
                 <div class="card-detail-text-col">
-                  <h3>Where Did That Call Even Go?</h3>
+                  <h3>Where Did That Call Go?</h3>
                   <p class="card-section-label">// what was broken</p>
-                  <p class="card-detail-text">The reception team had no system for logging who called, when, and why — just memory and the occasional sticky note. Follow-ups were missed, context was lost, and there was no way to review call history.</p>
+                  <p class="card-detail-text">The reception team had no proper system for logging who called, when, and why — instead having to rely on an excel sheet. Follow-ups were missed, context misunderstood, data went missing without accountability and call counts mismatched.</p>
                   <p class="card-section-label">// what was built</p>
-                  <p class="card-detail-text">Deployed EspoCRM to give the front desk a proper call log: searchable history, caller details, and follow-up tracking. What used to disappear the moment the call ended is now a permanent, queryable record.</p>
+                  <p class="card-detail-text">Deployed EspoCRM to give the front desk a proper call log: searchable history, caller details, follow-up tracking and easy report generation. What used to be a painpoint for the reception team and management is now a permanent, queryable record.</p>
                   <div class="stack" style="margin-top:16px;">EspoCRM · Docker · MySQL</div>
                 </div>
                 <div class="card-detail-image-col">
@@ -1044,7 +222,7 @@
                 <div class="card-detail-text-col">
                   <h3>Same Document, Different Day, Every Day</h3>
                   <p class="card-section-label">// what was broken</p>
-                  <p class="card-detail-text">Multiple departments were repeatedly drafting near-identical documents by hand — same structure, different details, every single time. Hours were spent on copy-paste work that should never have been manual.</p>
+                  <p class="card-detail-text">Multiple departments were repeatedly drafting near-identical documents by hand — same structure, different details. Hours were spent on copy-paste work that should never have been manual.</p>
                   <p class="card-section-label">// what was built</p>
                   <p class="card-detail-text">Set up Docassemble to turn those repetitive documents into guided, fill-in-the-blank workflows. What used to take manual drafting now takes a few form fields and produces a generated, ready-to-use document in seconds.</p>
                   <div class="stack" style="margin-top:16px;">Docassemble · Python · Docker</div>
@@ -1059,7 +237,7 @@
           </div>
           <div class="card">
             <div class="card-collapsed">
-              <h3>From "Just Message Me" to an Actual Ticket</h3>
+              <h3>From Calls to an Actual Ticket</h3>
               <p>IT requests came in through chats, calls, and hallway conversations with nothing tracked. Centralised everything into one ticketing system.</p>
               <div class="stack">osTicket · Docker · MySQL</div>
               <button class="card-link" type="button">View project <span class="arrow">→</span></button>
@@ -1067,11 +245,11 @@
             <div class="card-detail">
               <div class="card-detail-inner">
                 <div class="card-detail-text-col">
-                  <h3>From "Just Message Me" to an Actual Ticket</h3>
+                  <h3>From Calls to an Actual Ticket</h3>
                   <p class="card-section-label">// what was broken</p>
                   <p class="card-detail-text">Service requests arrived through whatever channel was closest — a chat message, a phone call, someone stopping by the desk. Nothing was tracked, nothing was prioritised, and things slipped through constantly.</p>
                   <p class="card-section-label">// what was built</p>
-                  <p class="card-detail-text">osTicket now gives every request a ticket, a status, and an owner. What started as a Google Form pushing notifications to Telegram eventually grew into this proper ticketing system with full history and accountability.</p>
+                  <p class="card-detail-text">osTicket now gives every request a ticket, a status, an owner and a way for each owner to track their tickets. What started as a Google Form pushing notifications to Telegram eventually grew into this proper ticketing system with full history and accountability. To be expanded to cover maintenance and Bio Medical Service Requests in near future.</p>
                   <div class="stack" style="margin-top:16px;">osTicket · Docker · MySQL</div>
                 </div>
                 <div class="card-detail-image-col">
@@ -1084,17 +262,17 @@
           </div>
           <div class="card">
             <div class="card-collapsed">
-              <h3>"Who Has the Spare Laptop?" — Nobody Knew</h3>
-              <p>No record existed of who had which hardware. Built an asset tracker so every device has an owner and a paper trail.</p>
+              <h3>"Who Has the Spare Laptop?"</h3>
+              <p>There were no proper records of who had which hardware. Built an asset tracker so every device has an owner and a paper trail. Alongside the asset tracker, a Consumables Tracker was also introduced to maintain a record of which user/department were provided with IT consumables.</p>
               <div class="stack">Snipe-IT · Docker · MySQL</div>
               <button class="card-link" type="button">View project <span class="arrow">→</span></button>
             </div>
             <div class="card-detail">
               <div class="card-detail-inner">
                 <div class="card-detail-text-col">
-                  <h3>"Who Has the Spare Laptop?" — Nobody Knew</h3>
+                  <h3>"Who Has the Spare Laptop?"</h3>
                   <p class="card-section-label">// what was broken</p>
-                  <p class="card-detail-text">IT hardware — laptops, monitors, peripherals — moved around the company with zero formal tracking. If someone asked who has the spare laptop, the honest answer was usually a guess. Devices went missing with no paper trail.</p>
+                  <p class="card-detail-text">IT hardware — laptops, CPUs, peripherals — moved around the company with zero formal tracking. If someone asked where a particular asset was assigned and to whom, the honest answer was usually a guess.</p>
                   <p class="card-section-label">// what was built</p>
                   <p class="card-detail-text">Snipe-IT now logs every asset: who has it, when it was assigned, and its full history. Hardware accountability went from informal memory to an actual searchable record with check-in and check-out tracking.</p>
                   <div class="stack" style="margin-top:16px;">Snipe-IT · Docker · MySQL</div>
@@ -1110,7 +288,7 @@
           <div class="card">
             <div class="card-collapsed">
               <h3>The Filing Cabinet Finally Retired</h3>
-              <p>Physical documents were scattered across desks and drawers with no digital backup. Digitised and indexed everything for instant search.</p>
+              <p>Physical documents were scattered across drawers and digital backups were scanned copies in a labyrinth of folders. Digitised and indexed everything for instant search.</p>
               <div class="stack">Paperless-ngx · Docker · OCR</div>
               <button class="card-link" type="button">View project <span class="arrow">→</span></button>
             </div>
@@ -1119,9 +297,9 @@
                 <div class="card-detail-text-col">
                   <h3>The Filing Cabinet Finally Retired</h3>
                   <p class="card-section-label">// what was broken</p>
-                  <p class="card-detail-text">Important documents existed only as physical copies — easy to lose, impossible to search, and a single point of failure. Finding anything meant physically digging through files, often unsuccessfully.</p>
+                  <p class="card-detail-text">Physical documents existed as a pile in drawers and scanned copies were saved in a maze of folders — easy to lose, pain to search, and a single point of failure. Finding anything meant digging through endless files.</p>
                   <p class="card-section-label">// what was built</p>
-                  <p class="card-detail-text">Paperless-ngx now scans, OCRs, and indexes every document, making years of paperwork instantly searchable by keyword. What used to mean digging through a filing cabinet now takes a few seconds in a search bar.</p>
+                  <p class="card-detail-text">Paperless-ngx now scans, OCRs, and indexes every document, making years of paperwork instantly searchable by keyword. What used to mean digging through a cabinets or folders now takes a few seconds in a search bar.</p>
                   <div class="stack" style="margin-top:16px;">Paperless-ngx · Docker · OCR</div>
                 </div>
                 <div class="card-detail-image-col">
@@ -1137,7 +315,7 @@
     </section>
     <section class="panel" id="resume">
       <div class="book-page"><div class="page-inner">
-        <p class="meme">"Allow us to introduce ourselves."</p>
+        <p class="meme">15 years, condensed…</p>
         <div class="resume-header">
           <div class="resume-header-text">
             
@@ -1155,7 +333,7 @@
             <p class="timeline-role">Sr. Executive — IT</p>
             <p class="timeline-company">Neotia Bhagirathi Woman And Child Care Centre, Guwahati</p>
             <p class="timeline-unit">A Unit of Ambuja Neotia Healthcare Venture Limited</p>
-            <p class="timeline-desc">Architected and maintains a self-hosted ecosystem of 19 Docker-based applications replacing paid SaaS tools — covering ticketing, asset management, document automation, DNS, media signage, CRM, and file management. Manages VLAN configuration, firewall, HMIS/PACS integration, and workflow automation across the facility.</p>
+            <p class="timeline-desc">Architected and deployed a self-hosted ecosystem and now maintains 19 Docker-based applications replacing paid SaaS tools — covering ticketing, asset management, document automation, DNS, media signage, CRM, and file management. Manages firewall, HMIS/PACS integration, and workflow automation across the facility.</p>
           </div>
 
           <div class="timeline-item">
@@ -1163,7 +341,7 @@
             <p class="timeline-role">I.T. Consultant</p>
             <p class="timeline-company">Jorhat Cancer Care Centre, Jorhat</p>
             <p class="timeline-unit">A Unit of Assam Cancer Care Foundation — TATA Foundation</p>
-            <p class="timeline-desc">Built Excel-based automation tools across multiple units — network downtime monitoring, patient journey TAT tracking, print job counters, and lab usage reports. Designed Active Directory policies, managed print servers, and oversaw HMIS/PACS integration.</p>
+            <p class="timeline-desc">Built Excel-based automation tools across multiple units — network downtime monitoring, patient journey TAT tracking, print job counters, and lab usage reports. Manages VLANs through Network Switches, maintained firewall policies, designed Active Directory policies, managed print servers, and oversaw HMIS/PACS integration.</p>
           </div>
 
           <div class="career-footer">
@@ -1189,210 +367,28 @@
               </div>
             </div>
           </div>
-
         </div>
-        <a href="assets/pdf/Resume-Daniel_B_M.pdf" class="dl-btn" download="Resume-Daniel_B_M.pdf">↓ Download Resume (PDF)</a>
-      </div></div>
+        <div class="resume-buttons">
+  <a href="assets/pdf/Resume-Daniel_B_M.pdf" class="dl-btn" download="Resume-Daniel_B_M.pdf">↓ Resume — International</a>
+  <a href="assets/pdf/Resume_Daniel_B_M.pdf" class="dl-btn" download="Resume_Daniel_B_M.pdf">↓ Resume — India</a>
+
+</div></div></div>
     </section>
     <section class="panel" id="contact">
       <div class="book-page"><div class="page-inner">
-        <p class="meme">"You had my curiosity. Now you have my attention."</p>
+        <p class="meme">"Your move."</p>
         <h2>Let's Talk</h2>
         <p class="body-text">Open to interesting problems, collaborations, and conversations.</p>
         <div class="contact-row">
-          <a href="mailto:hi@idanielm.com" class="c-link">✉ Email</a>
-          <a href="https://www.linkedin.com/in/daniel-marbaniang-01676478/" class="c-link" target="_blank" rel="noopener">in LinkedIn</a>
-          <a href="https://github.com/Bot-for-What" class="c-link" target="_blank" rel="noopener">⌥ GitHub</a>
+          <a id="contact-email" class="c-link">✉ Email</a>
+          <a id="linkedin" class="c-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a id="github" class="c-link" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div></div>
     </section>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-  (() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const bar = document.getElementById('progress');
-    window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-      bar.style.width = pct + '%';
-    }, { passive: true });
-    const dots   = document.querySelectorAll('.dot');
-    const panels = document.querySelectorAll('.panel');
-    function activateDot(id) {
-      dots.forEach(d => d.classList.toggle('active', d.dataset.id === id));
-    }
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        document.getElementById(dot.dataset.id)?.scrollIntoView({ behavior: 'smooth' });
-        activateDot(dot.dataset.id);
-      });
-    });
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) activateDot(e.target.id); });
-    }, { threshold: 0.45 });
-    panels.forEach(p => io.observe(p));
-    const chips = document.querySelectorAll('.chip');
-    ScrollTrigger.create({
-      trigger: '#skills', start: 'top 75%',
-      onEnter:     () => chips.forEach((c, i) => setTimeout(() => c.classList.add('is-open'), i * 70)),
-      onLeaveBack: () => chips.forEach(c => c.classList.remove('is-open')),
-    });
-    const cards = document.querySelectorAll('.card');
-    ScrollTrigger.create({
-      trigger: '#projects', start: 'top 75%',
-      onEnter:     () => cards.forEach((c, i) => setTimeout(() => c.classList.add('is-open'), i * 120)),
-      onLeaveBack: () => cards.forEach(c => c.classList.remove('is-open')),
-    });
-    document.querySelectorAll('.card-link:not(.card-link-hide)').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.card');
-        document.querySelectorAll('.card.expanded').forEach(open => {
-          if (open !== card) open.classList.remove('expanded');
-        });
-        card.classList.add('expanded');
-        setTimeout(() => {
-          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          ScrollTrigger.refresh();
-        }, 50);
-      });
-    });
-    document.querySelectorAll('.card-link-hide').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.card');
-        card.classList.remove('expanded');
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        ScrollTrigger.refresh();
-      });
-    });
-    const showMoreBtn = document.getElementById('show-more-apps');
-    if (showMoreBtn) {
-      showMoreBtn.addEventListener('click', () => {
-        const appChipsEl = document.querySelector('.app-chips');
-        const isOpen = appChipsEl.classList.toggle('expanded');
-        showMoreBtn.classList.toggle('open', isOpen);
-        showMoreBtn.innerHTML = isOpen
-          ? '− Show less <span class="show-more-arrow">▾</span>'
-          : '+ more <span class="show-more-arrow">▾</span>';
-      });
-    }
-    const themeBtn = document.getElementById('theme-toggle');
-    function positionToggle() {
-      const nav = document.getElementById('nav');
-      const navRect = nav.getBoundingClientRect();
-      themeBtn.style.top = (navRect.bottom + 16) + 'px';
-    }
-    positionToggle();
-    window.addEventListener('resize', positionToggle);
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light');
-      themeBtn.textContent = '🌙';
-    }
-    themeBtn.addEventListener('click', () => {
-      const isLight = document.body.classList.toggle('light');
-      themeBtn.textContent = isLight ? '🌙' : '☀️';
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    });
-    const chipInfo = {
-      'Docker':               'Container platform used to run all self-hosted apps in isolated, portable environments.',
-      'Linux':                'Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.',
-      'Caddy':                'Reverse proxy handling internal domain routing and automatic HTTPS for all hosted apps.',
-      'Technitium':           'Internal DNS server resolving clean domain names like tv.loc across the LAN instead of raw IPs.',
-      'Networking':           'LAN configuration, VLAN and interVLAN configuration, and internal routing across the company network.',
-      'n8n':                  'Workflow automation tool. Used in the Telegram notification trigger during ticket creation project.',
-      'Bash':                 'Used for scripting, scheduled tasks, and server maintenance automation.',
-      'Active Directory':     'Windows Server AD managing user accounts, permissions, and authentication across the organization.',
-      'Group Policy':         'GPO-based automation for startup scripts, temp file cleanup, shutdown logging, and print access control.',
-      'Excel Automation':     'Advanced formula-driven sheets tracked network downtime, patient journeys, print jobs, and vendor tickets across units.',
-      'Jellyfin':             'Media server used to stream signage content across company TVs throughout the company premises.',
-      'Vaultwarden':          'Self-hosted Bitwarden-compatible password manager for secure credential sharing.',
-      'Paperless-ngx':        'Document management system with OCR — digitises and indexes physical documents for instant search.',
-      'Immich':               'Self-hosted photo and video backup solution replacing Google Photos.',
-      'OsTicket':             'Ticketing system centralising all IT service requests with tracking and accountability.',
-      'Snipe-IT':             'IT asset management tracking all hardware and consumables — who has it, when assigned, full history.',
-      'Docassemble':          'Document automation platform turning repetitive manual drafting into guided form-based workflows.',
-      'EspoCRM':              'CRM deployed for front desk call logging — searchable history of all incoming calls.',
-      'Linkwarden':           'Self-hosted bookmark manager for saving and organising internal and external links.',
-      'Dockhand':             'Docker container management interface for monitoring and controlling running services.',
-      'Copyparty':            'Self-hosted file server providing FTP-like access for internal file sharing.',
-      'IT-Tools':             'Collection of useful developer and IT utilities, self-hosted for internal use.',
-      'Git':                  'Version control for tracking configuration files, scripts, and deployment changes.',
-      'Telegram Integration': 'Used to build notification bots — started with service request alerts, expanded to multiple integrations.',
-      'Google Forms':         'Entry point for service requests before osTicket — still used for specific intake workflows.',
-      'NocoDB':               'No-code database interface layered over existing databases for easy data viewing and editing.',
-      'Metabase':             'Business intelligence tool for building internal dashboards and reports from live data.',
-    };
-    let activeBubble = null;
-    function clearBubbles() {
-      document.querySelectorAll('.chip-bubble').forEach(b => b.remove());
-      document.querySelectorAll('.chip.highlighted').forEach(c => c.classList.remove('highlighted'));
-      activeBubble = null;
-    }
-    function showBubble(chip) {
-      clearBubbles();
-      const name = chip.textContent.trim();
-      const info = chipInfo[name];
-      if (!info) return;
-      const bubble = document.createElement('div');
-      bubble.className = 'chip-bubble';
-      bubble.textContent = info;
-      chip.appendChild(bubble);
-      chip.classList.add('highlighted');
-      activeBubble = bubble;
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => bubble.classList.add('visible'));
-      });
-      setTimeout(() => {
-        bubble.classList.remove('visible');
-        setTimeout(() => {
-          bubble.remove();
-          chip.classList.remove('highlighted');
-          if (activeBubble === bubble) activeBubble = null;
-        }, 200);
-      }, 4000);
-    }
-    document.querySelectorAll('#skills .chip').forEach(chip => {
-      chip.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (chip.classList.contains('highlighted')) {
-          clearBubbles();
-        } else {
-          showBubble(chip);
-        }
-      });
-    });
-    document.querySelectorAll('.app-chip').forEach(appChip => {
-      appChip.style.cursor = 'pointer';
-      appChip.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const name = appChip.textContent.trim();
-        const skillsChips = document.querySelectorAll('#skills .chip');
-        let targetChip = null;
-        skillsChips.forEach(chip => {
-          if (chip.textContent.trim() === name) targetChip = chip;
-        });
-        if (targetChip) {
-          targetChip.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-          setTimeout(() => showBubble(targetChip), 900);
-        } else {
-          document.getElementById('skills').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          setTimeout(() => showBubble(appChip), 900);
-        }
-      });
-    });
-    document.addEventListener('click', () => clearBubbles());
-    /* ── CAREER HISTORY TOGGLE ── */
-    const careerToggle = document.getElementById('career-toggle');
-    const careerExtra  = document.getElementById('career-extra');
-    if (careerToggle && careerExtra) {
-      careerToggle.addEventListener('click', () => {
-        const isOpen = careerExtra.classList.toggle('open');
-        careerToggle.classList.toggle('open', isOpen);
-      });
-    }
 
-    window.addEventListener('load', () => ScrollTrigger.refresh());
-  })();
-  </script>
 </body>
 </html>
