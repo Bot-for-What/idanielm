@@ -19,7 +19,7 @@
     });
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) activateDot(e.target.id); });
-    }, { threshold: 0.45 });
+    }, { threshold: 0, rootMargin:'-10% 0px -80% 0px' });
     panels.forEach(p => io.observe(p));
     const chips = document.querySelectorAll('.chip');
     ScrollTrigger.create({
@@ -122,29 +122,50 @@
       document.querySelectorAll('.chip.highlighted').forEach(c => c.classList.remove('highlighted'));
       activeBubble = null;
     }
-    function showBubble(chip) {
-      clearBubbles();
-      const name = chip.textContent.trim();
-      const info = chipInfo[name];
-      if (!info) return;
-      const bubble = document.createElement('div');
-      bubble.className = 'chip-bubble';
-      bubble.textContent = info;
-      chip.appendChild(bubble);
-      chip.classList.add('highlighted');
-      activeBubble = bubble;
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => bubble.classList.add('visible'));
-      });
-      setTimeout(() => {
-        bubble.classList.remove('visible');
-        setTimeout(() => {
-          bubble.remove();
-          chip.classList.remove('highlighted');
-          if (activeBubble === bubble) activeBubble = null;
-        }, 200);
-      }, 4000);
+function showBubble(chip) {
+  clearBubbles();
+  const name = chip.textContent.trim();
+  const info = chipInfo[name];
+  if (!info) return;
+  const bubble = document.createElement('div');
+  bubble.className = 'chip-bubble';
+  bubble.textContent = info;
+  chip.appendChild(bubble);
+  chip.classList.add('highlighted');
+  activeBubble = bubble;
+
+  requestAnimationFrame(() => {
+    const chipRect = chip.getBoundingClientRect();
+    const bubbleWidth = bubble.offsetWidth;
+    const margin = 20;
+
+    const center = chipRect.left + chipRect.width / 2;
+    const halfWidth = bubbleWidth / 2;
+    const leftEdge = center - halfWidth;
+    const rightEdge = center + halfWidth;
+
+    let shift = 0;
+    if (leftEdge < margin) {
+      shift = margin - leftEdge;
+    } else if (rightEdge > window.innerWidth - margin) {
+      shift = (window.innerWidth - margin) - rightEdge;
     }
+
+    bubble.style.left = `calc(50% + ${shift}px)`;
+    bubble.style.setProperty('--arrow-shift', `${shift}px`);
+
+    requestAnimationFrame(() => bubble.classList.add('visible'));
+  });
+
+  setTimeout(() => {
+    bubble.classList.remove('visible');
+    setTimeout(() => {
+      bubble.remove();
+      chip.classList.remove('highlighted');
+      if (activeBubble === bubble) activeBubble = null;
+    }, 200);
+  }, 4000);
+}
     document.querySelectorAll('#skills .chip').forEach(chip => {
       chip.addEventListener('click', (e) => {
         e.stopPropagation();
