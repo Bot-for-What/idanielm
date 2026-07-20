@@ -70,7 +70,7 @@ html { scroll-behavior: smooth; }
       --border: #cbd5e1;
       --text:   #1a202c;
       --dim:    #4a5568;
-      --accent: #00875a;
+      --accent: #026947;
       --glow:   rgba(0,135,90,0.15);
     }
     body.light #scene {
@@ -80,7 +80,7 @@ html { scroll-behavior: smooth; }
         var(--bg);
     }
     body.light .dl-btn {
-      background: #34c78a;      /* lighter, fresher mint-green */
+      background: #026947;      /* lighter, fresher mint-green */
       color: #0a2e1f;
     }
     body.light .dl-btn:hover {
@@ -422,7 +422,7 @@ html { scroll-behavior: smooth; }
       content: '';
       position: absolute;
       top: 100%;
-      left: 50%;
+      left: calc(50% - var(--arrow-shift, 0px));
       transform: translateX(-50%);
       border: 6px solid transparent;
       border-top-color: var(--accent);
