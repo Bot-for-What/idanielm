@@ -10,6 +10,7 @@
   <title>Daniel — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script defer src="main.js"></script>
 </head>
@@ -104,35 +105,37 @@
           <p class="skill-group-label">// infrastructure</p>
           <div class="skills-wrap">
             <span class="chip" data-info="Container platform used to run all self-hosted apps in isolated, portable environments.">Docker</span>
-            <span class="chip" data-info="Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.">Linux</span>
             <span class="chip" data-info="Reverse proxy handling internal domain routing and automatic HTTPS for all hosted apps.">Caddy</span>
             <span class="chip" data-info="Internal DNS server resolving clean domain names like tv.loc across the LAN instead of raw IPs.">Technitium</span>
             <span class="chip" data-info="LAN configuration, VLAN and interVLAN configuration, and internal routing across the company network.">Networking</span>
+            <span class="chip" data-info="Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.">Linux</span>
           </div>
         </div>
         <div class="skill-group">
           <p class="skill-group-label">// automation & scripting</p>
           <div class="skills-wrap">
-            <span class="chip" data-info="Workflow automation tool. Used in the Telegram notification trigger during ticket creation project.">n8n</span>
-            <span class="chip" data-info="Used for scripting, scheduled tasks, and server maintenance automation.">Bash</span>
+            <span class="chip" data-info="Advanced formula-driven sheets tracked network downtime, patient journeys, print jobs, and vendor tickets across units.">Excel Automation</span>
             <span class="chip" data-info="Windows Server AD managing user accounts, permissions, and authentication across the organization.">Active Directory</span>
             <span class="chip" data-info="GPO-based automation for startup scripts, temp file cleanup, shutdown logging, and print access control.">Group Policy</span>
-            <span class="chip" data-info="Advanced formula-driven sheets tracked network downtime, patient journeys, print jobs, and vendor tickets across units.">Excel Automation</span>
+            <span class="chip" data-info="Used for scripting, scheduled tasks, and server maintenance automation.">Bash</span>
+            <span class="chip" data-info="Workflow automation tool. Used in the Telegram notification trigger during ticket creation project.">n8n</span>
+
+            
           </div>
         </div>
         <div class="skill-group">
           <p class="skill-group-label">// evaluated, selected and deployed</p>
           <div class="skills-wrap">
-            <span class="chip" data-info="Media server used to stream signage content across company TVs throughout the company premises.">Jellyfin</span>
-            <span class="chip" data-info="Self-hosted Bitwarden-compatible password manager for secure credential sharing.">Vaultwarden</span>
-            <span class="chip" data-info="Document management system with OCR — digitises and indexes physical documents for instant search.">Paperless-ngx</span>
-            <span class="chip" data-info="Self-hosted photo and video backup solution replacing Google Photos.">Immich</span>
             <span class="chip" data-info="Ticketing system centralising all IT service requests with tracking and accountability.">OsTicket</span>
             <span class="chip" data-info="IT asset management tracking all hardware and consumables — who has it, when assigned, full history.">Snipe-IT</span>
             <span class="chip" data-info="Document automation platform turning repetitive manual drafting into guided form-based workflows.">Docassemble</span>
             <span class="chip" data-info="CRM deployed for front desk call logging — searchable history of all incoming calls.">EspoCRM</span>
-            <span class="chip" data-info="Self-hosted bookmark manager for saving and organising internal and external links.">Linkwarden</span>
+            <span class="chip" data-info="Document management system with OCR — digitises and indexes physical documents for instant search.">Paperless-ngx</span>
+            <span class="chip" data-info="Media server used to stream signage content across company TVs throughout the company premises.">Jellyfin</span>
             <span class="chip" data-info="Docker container management interface for monitoring and controlling running services.">Dockhand</span>
+            <span class="chip" data-info="Self-hosted Bitwarden-compatible password manager for secure credential sharing.">Vaultwarden</span>
+            <span class="chip" data-info="Self-hosted photo and video backup solution replacing Google Photos.">Immich</span>
+            <span class="chip" data-info="Self-hosted bookmark manager for saving and organising internal and external links.">Linkwarden</span>
             <span class="chip" data-info="Self-hosted file server providing FTP-like access for internal file sharing.">Copyparty</span>
             <span class="chip" data-info="Collection of useful developer and IT utilities, self-hosted for internal use.">IT-Tools</span>
           </div>
@@ -140,11 +143,11 @@
         <div class="skill-group">
           <p class="skill-group-label">// tools & integrations</p>
           <div class="skills-wrap">
+            <span class="chip" data-info="Business intelligence tool for building internal dashboards and reports from live data.">Metabase</span>
+            <span class="chip" data-info="No-code database interface layered over existing databases for easy data viewing and editing.">NocoDB</span>
             <span class="chip" data-info="Version control for tracking configuration files, scripts, and deployment changes.">Git</span>
             <span class="chip" data-info="Used to build notification bots — started with service request alerts, expanded to multiple integrations.">Telegram Integration</span>
             <span class="chip" data-info="Entry point for service requests before osTicket — still used for specific intake workflows.">Google Forms</span>
-            <span class="chip" data-info="No-code database interface layered over existing databases for easy data viewing and editing.">NocoDB</span>
-            <span class="chip" data-info="Business intelligence tool for building internal dashboards and reports from live data.">Metabase</span>
           </div>
         </div>
         <div class="skill-group">
@@ -164,6 +167,7 @@
         <p class="meme">Problems that needed fixing…</p>
         <h2>Projects</h2>
         <div class="cards" id="project-cards">
+          <!-- Project 1 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>Naming Convention vs. Remembering IP Addresses</h3>
@@ -189,6 +193,7 @@
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
             </div>
           </div>
+          <!-- Project 2 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>Where Did That Call Go?</h3>
@@ -214,6 +219,7 @@
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
             </div>
           </div>
+          <!-- Project 3 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>Same Document, Different Day, Every Day</h3>
@@ -239,6 +245,7 @@
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
             </div>
           </div>
+          <!-- Project 4 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>From Calls to an Actual Ticket</h3>
@@ -264,6 +271,7 @@
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
             </div>
           </div>
+          <!-- Project 5 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>"Who Has the Spare Laptop?"</h3>
@@ -289,6 +297,7 @@
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
             </div>
           </div>
+          <!-- Project 6 -->
           <div class="card">
             <div class="card-collapsed">
               <h3>The Filing Cabinet Finally Retired</h3>
@@ -312,6 +321,40 @@
                 </div>
               </div>
               <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
+            </div>
+          </div>
+          <!-- Project 7 -->
+          <div class="card">
+  <div class="card-collapsed">
+    <h3>Visitor Register, Digitized</h3>
+    <p>Visitor entries were logged on paper — illegible, easy to lose, and impossible to search. Built a digital visitor register with signatures, timestamps, and role-based access.</p>
+    <div class="stack">Saltcorn · Docker · PostgreSQL</div>
+    <button class="card-link" type="button">View project <span class="arrow">→</span></button>
+  </div>
+  <div class="card-detail">
+    <div class="card-detail-inner">
+      <div class="card-detail-text-col">
+        <h3>Visitor Register, Digitized</h3>
+        <p class="card-section-label">// what was broken</p>
+        <p class="card-detail-text">Visitor logs lived on paper at the front desk — handwriting nobody could read later, no way to search past entries, and no real record if a register page went missing. Auditing who visited, when, and why meant flipping through stacks of paper.</p>
+        <p class="card-section-label">// what was built</p>
+        <p class="card-detail-text">A self-hosted digital visitor register built on Saltcorn, with a signature pad for visitor sign-in, automatic date/time stamping on every entry, and role-based access so front desk staff and management see exactly what they need — nothing more. Every entry is now instantly searchable, with a permanent, tamper-resistant record.</p>
+        <div class="stack" style="margin-top:16px;">Saltcorn · Docker · PostgreSQL</div>
+      </div>
+      <div class="card-detail-image-col">
+        <img src="assets/images/projects/visitor-register.png" alt="Visitor register dashboard" class="card-screenshot" loading="lazy" onerror="this.outerHTML='<div class=&quot;card-screenshot-placeholder&quot;>visitor-register.png</div>'" />
+        <img src="assets/images/projects/visitor-register-2.png" alt="Visitor sign-in with signature pad" class="card-screenshot" loading="lazy" onerror="this.outerHTML='<div class=&quot;card-screenshot-placeholder&quot;>visitor-register-2.png</div>'" />
+      </div>
+    </div>
+    <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
+  </div>
+</div>
+          <!-- Comment out placeholder card if Projects are even -->
+          <div class="card placeholder-card">
+            <div class="card-collapsed">
+              <h3>More Solutions Coming Soon</h3>
+              <p>Currently untangling the next one. Check back soon, or peek at the <a href="#about" style="color: var(--accent); text-decoration: underline;">running list</a> of what's live right now.</p>
+              <div class="stack" style="text-align: right;">// IN PROGRESS..</div>
             </div>
           </div>
         </div>
