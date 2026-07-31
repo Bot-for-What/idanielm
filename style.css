@@ -544,6 +544,21 @@ html { scroll-behavior: smooth; }
     @media (min-width: 1024px) {
       .cards { grid-template-columns: 1fr 1fr; align-items: stretch; }
     }
+.card-detail {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.45s ease;
+}
+.card.expanded .card-detail {
+  max-height: 2000px;
+  opacity: 1;
+}
+.card.expanded .card-collapsed {
+  display: none;
+}
+
     /* Each collapsed card is a flex column — link always pinned to bottom */
     .card-collapsed {
       display: flex;
@@ -603,8 +618,7 @@ html { scroll-behavior: smooth; }
       .card-detail-image-col { flex: 1; }
     }
     .card-detail-text { color: var(--dim); font-size: 0.88rem; line-height: 1.7; margin-bottom: 4px; }
-    .card-detail { display: none; }
-    .card.expanded .card-detail { display: block; }
+
     .card.expanded .card-collapsed { display: none; }
     .card-section-label {
       font-family: var(--mono);
@@ -641,6 +655,92 @@ html { scroll-behavior: smooth; }
       padding: 16px;
       background: var(--bg);
     }
+    .placeholder-card {
+  border-style: dashed;
+  opacity: 0.85;
+}
+.placeholder-card:hover {
+  border-color: var(--border); /* prevents the usual accent hover glow, since there's nothing to click into */
+}
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, background 0.3s ease;
+    }
+    .lightbox-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+      background: rgba(0, 0, 0, 0.85);
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      transform: scale(0.92);
+      transition: transform 0.3s ease;
+    }
+    .lightbox-overlay.visible .lightbox-img {
+      transform: scale(1);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox-nav:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .lightbox-prev { left: 24px; }
+    .lightbox-next { right: 24px; }
+    .card-screenshot { cursor: zoom-in; }
+    @media (max-width: 768px) {
+      .lightbox-nav { width: 36px; height: 36px; font-size: 1.1rem; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-close { top: 14px; right: 14px; }
+    }
+
     .resume-header {
       display: flex;
       justify-content: space-between;
