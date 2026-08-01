@@ -103,6 +103,74 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
   });
 });
 
+/* ── LIGHTBOX ── */
+(() => {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = `
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">‹</button>
+    <img class="lightbox-img" src="" alt="">
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">›</button>
+    <button class="lightbox-close" type="button" aria-label="Close">✕</button>
+  `;
+  document.body.appendChild(overlay);
+
+  const imgEl = overlay.querySelector('.lightbox-img');
+  const prevBtn = overlay.querySelector('.lightbox-prev');
+  const nextBtn = overlay.querySelector('.lightbox-next');
+  const closeBtn = overlay.querySelector('.lightbox-close');
+
+  let currentGroup = [];
+  let currentIndex = 0;
+
+  function updateNavVisibility() {
+    const multi = currentGroup.length > 1;
+    prevBtn.style.display = multi ? 'flex' : 'none';
+    nextBtn.style.display = multi ? 'flex' : 'none';
+  }
+
+  function showImage(index) {
+    currentIndex = (index + currentGroup.length) % currentGroup.length;
+    const target = currentGroup[currentIndex];
+    imgEl.src = target.src;
+    imgEl.alt = target.alt || '';
+  }
+
+  function openLightbox(clickedImg) {
+    const card = clickedImg.closest('.card-detail-image-col') || clickedImg.parentElement;
+    currentGroup = Array.from(card.querySelectorAll('.card-screenshot'));
+    const startIndex = currentGroup.indexOf(clickedImg);
+    showImage(startIndex >= 0 ? startIndex : 0);
+    updateNavVisibility();
+    overlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.card-screenshot').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img));
+  });
+
+  prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+  nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+  closeBtn.addEventListener('click', closeLightbox);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('visible')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
+})();
+
   /* ── SHOW MORE APPS ── */
   const showMoreBtn = document.getElementById('show-more-apps');
   if (showMoreBtn) {
