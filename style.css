@@ -655,7 +655,7 @@ html { scroll-behavior: smooth; }
       padding: 16px;
       background: var(--bg);
     }
-    .placeholder-card {
+        .placeholder-card {
   border-style: dashed;
   opacity: 0.85;
 }
