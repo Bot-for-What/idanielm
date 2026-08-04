@@ -373,5 +373,26 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
       link.href = `https://${hub}/${git}`;
     }
   })();
+  
+    /* ── ABOUT FULL STORY TOGGLE ── */
+const aboutToggle  = document.getElementById('about-toggle');
+const aboutCopy     = document.getElementById('about-copy');
+const aboutHook     = document.getElementById('about-hook');
+const aboutSection  = document.getElementById('about');
+
+if (aboutToggle && aboutCopy && aboutHook) {
+  aboutToggle.addEventListener('click', () => {
+    const isOpen = aboutCopy.classList.toggle('open');
+    aboutToggle.classList.toggle('open', isOpen);
+    aboutHook.classList.toggle('is-hidden', isOpen);
+    aboutToggle.innerHTML = isOpen
+      ? 'Show Less <span class="about-toggle-arrow">▾</span>'
+      : 'Full Story <span class="about-toggle-arrow">▾</span>';
+
+    if (!isOpen) {
+      aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
 
 })();
