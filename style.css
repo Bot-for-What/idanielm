@@ -511,7 +511,69 @@ html { scroll-behavior: smooth; }
       margin-bottom: 16px;
     }
     .about-location::before { content: '◎'; color: var(--accent); font-size: 0.7rem; }
-    .about-copy { font-size: 0.92rem; color: var(--dim); line-height: 1.8; margin-bottom: 24px; }
+    /* ── ABOUT HOOK + FULL STORY TOGGLE ── */
+  .about-hook {
+   font-size: 0.95rem;
+    color: var(--dim);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .about-hook.is-hidden { display: none; }
+
+  .about-copy { font-size: 0.92rem; color: var(--dim); line-height: 1.8; margin-bottom: 24px; text-align: justify; text-justify: inter-word;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-bottom: 0;
+    transition: max-height 0.6s ease, opacity 0.45s ease, margin-bottom 0.45s ease;
+  }
+  .about-copy.open {
+    max-height: 2000px;
+    opacity: 1;
+    margin-bottom: 24px;
+  }
+
+  .about-toggle {
+    font-style: italic; 
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--dim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0px 0 0px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.95;
+    transition: opacity 0.2s, color 0.2s;
+    position: relative;
+    margin: 0 0 7vh 20px;
+  }
+
+  .about-toggle::before {
+    content: '→';
+    position: absolute;
+    top: 0px;
+    left: 0;
+    color: var(--accent);
+    font-size: medium;
+    transition: transform 0.3s ease;
+  }
+  .about-toggle.open::before { transform: rotate(-90deg); }
+  .about-toggle:hover {
+    opacity: 1;
+    color: var(--accent);
+    text-shadow: 0 0 12px var(--glow);
+  }
+  .about-toggle-arrow {
+    display: inline-block;
+    font-size: 1rem;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .about-toggle.open .about-toggle-arrow { transform: rotate(180deg); }
     .about-copy p + p { margin-top: 12px; }
     .running-label {
       font-family: var(--mono);
