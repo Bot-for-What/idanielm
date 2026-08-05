@@ -415,7 +415,7 @@ html { scroll-behavior: smooth; }
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 300;
+      z-index: 9999;
       white-space: normal;
     }
     .chip-bubble::after {
@@ -511,7 +511,8 @@ html { scroll-behavior: smooth; }
       margin-bottom: 16px;
     }
     .about-location::before { content: '◎'; color: var(--accent); font-size: 0.7rem; }
-    /* ── ABOUT HOOK + FULL STORY TOGGLE ── */
+    
+/* ── ABOUT HOOK + FULL STORY TOGGLE ── */
   .about-hook {
    font-size: 0.95rem;
     color: var(--dim);
@@ -575,13 +576,14 @@ html { scroll-behavior: smooth; }
   }
   .about-toggle.open .about-toggle-arrow { transform: rotate(180deg); }
     .about-copy p + p { margin-top: 12px; }
+
     .running-label {
       font-family: var(--mono);
       font-size: 0.72rem;
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 10px;
+      margin-bottom: 18px;
       opacity: 0.7;
     }
     .app-chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -717,7 +719,7 @@ html { scroll-behavior: smooth; }
       padding: 16px;
       background: var(--bg);
     }
-        .placeholder-card {
+    .placeholder-card {
   border-style: dashed;
   opacity: 0.85;
 }
@@ -1007,3 +1009,12 @@ html { scroll-behavior: smooth; }
       transition: border-color 0.25s, color 0.25s, box-shadow 0.25s;
     }
     .c-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 16px var(--glow); }
+
+    .app-chip {
+       position: relative;
+    }
+    @media (max-width: 480px) {
+  .chip-bubble {
+    width: min(220px, calc(100vw - 64px));
+  }
+}
