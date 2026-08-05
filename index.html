@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Daniel B. Marbaniang — Self-hosted Infrastructure & FOSS Solutions Specialist. A decade-plus in healthcare IT, IT-Infrastructure, building production Docker ecosystems and automation.">
+  <meta property="og:title" content="Daniel B. Marbaniang — Portfolio">
+  <meta property="og:description" content="Self-hosted Infrastructure & FOSS Solutions Specialist.">
+  <meta property="og:image" content="https://idanielm.com/assets/images/cards/hero.png">
+  <meta property="og:url" content="https://idanielm.com">
   <link rel="icon" type="image/x-icon" href="assets/images/favi/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favi/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favi/favicon-16x16.png">
@@ -10,9 +15,7 @@
   <title>Daniel — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?...&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script defer src="main.js"></script>
 </head>
@@ -20,12 +23,12 @@
   <div id="scene"></div>
   <div id="progress"></div>
   <nav id="nav">
-    <div class="dot active" data-id="hero"     data-label="Home"></div>
-    <div class="dot"        data-id="about"    data-label="About"></div>
-    <div class="dot"        data-id="skills"   data-label="Skills"></div>
-    <div class="dot"        data-id="projects" data-label="Projects"></div>
-    <div class="dot"        data-id="resume"   data-label="Resume"></div>
-    <div class="dot"        data-id="contact"  data-label="Contact"></div>
+    <div class="dot active" data-id="hero"     data-label="Home" aria-label="Home"></div>
+    <div class="dot"        data-id="about"    data-label="About" aria-label="About"></div>
+    <div class="dot"        data-id="skills"   data-label="Skills" aria-label="Skills"></div>
+    <div class="dot"        data-id="projects" data-label="Projects" aria-label="Projects"></div>
+    <div class="dot"        data-id="resume"   data-label="Resume" aria-label="Resume"></div>
+    <div class="dot"        data-id="contact"  data-label="Contact" aria-label="Contact"></div>
   </nav>
   <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">☀️</button>
   <main id="main">
@@ -63,21 +66,23 @@
             <p class="about-location">Currently based in Guwahati.</p>
             <p>It all started with a love for making things work better — and once that door opened, there was no closing it.</p>
             <p>What began as formulated Excel sheets quickly grew into something else entirely. A shared network downtime tracker used across multiple units. A patient journey turnaround sheet pulling live data from different departments. Print job counters, vendor ticket trackers, radiology and lab machine usage reports — all built because someone had a manual process and I couldn't help but wonder if there was a better way. Then a senior colleague showed me Active Directory Server Policies, and something clicked. Scripts, Group Policies, print server management, login trackers — each one a new puzzle, each solution a reason to go deeper.</p>
-            <p>Soon after, I fell headfirst into Docker and the world of open source software. Form a rudimentary idea of using Google Form with a Telegram integration as a Service Request system became a self-hosted ecosystem of 19 actively maintained applications, each one chosen to solve a specific problem — DNS management, internal domain routing, asset tracking, a ticketing system, building-wide media signage, a reception call log, document automation. Alongside this, I oversee HMIS, PACS, and lab equipment integration across clinical systems.</p>
+            <p>Soon after, I fell headfirst into Docker and the world of open source software. Form a rudimentary idea of using Google Form with a Telegram integration as a Service Request system became a self-hosted ecosystem of <span class="app-count"></span> actively maintained applications, each one chosen to solve a specific problem — DNS management, internal domain routing, asset tracking, a ticketing system, building-wide media signage, a reception call log, document automation. Alongside this, I oversee HMIS, PACS, and lab equipment integration across clinical systems.</p>
             <p>Nobody told me to do any of it. But noticing the pain points of the people around you — and quietly making them disappear is a satisfaction of a different level.</p>
-            </div>
-            <button class="about-toggle" id="about-toggle" type="button">
-                Full Story <span class="about-toggle-arrow">▾</span>
-            </button>
+          </div>
+        <button class="about-toggle" id="about-toggle" type="button">
+            Full Story <span class="about-toggle-arrow">▾</span>
+        </button>
             <p class="running-label">‖ currently running</p>
             <div class="app-chips">
+              <span class="app-chip">Saltcorn</span>
               <span class="app-chip">Docassemble</span>
+              <span class="app-chip ">EspoCRM</span>  
               <span class="app-chip">OsTicket</span>
-              <span class="app-chip">Snipe-IT</span>
+              <span class="app-chip app-chip-hidden">Snipe-IT</span>
               <span class="app-chip">Paperless-ngx</span>
               <span class="app-chip">Caddy</span>
-              <span class="app-chip">Jellyfin</span>
-              <span class="app-chip app-chip-hidden">Technitium</span>
+              <span class="app-chip app-chip-hidden">Jellyfin</span>
+              <span class="app-chip">Technitium</span>
               <span class="app-chip app-chip-hidden">Copyparty</span>
               <span class="app-chip app-chip-hidden">Metabase</span>
               <span class="app-chip app-chip-hidden">NocoDB</span>
@@ -86,10 +91,9 @@
               <span class="app-chip app-chip-hidden">IT-Tools</span>
               <span class="app-chip app-chip-hidden">Linkwarden</span>
               <span class="app-chip app-chip-hidden">Vaultwarden</span>
-              <span class="app-chip app-chip-hidden">EspoCRM</span>
-              <span class="app-chip app-chip-hidden">n8n</span>
-              <span class="app-chip app-chip-hidden">Telegram Integration</span>
-              <span class="app-chip app-chip-hidden">Google Forms</span>
+              <span class="app-chip app-chip-hidden">Active Pieces</span>
+              <span class="app-chip app-chip-hidden">Beszel</span>
+              <span class="app-chip app-chip-hidden">Organizr</span>
             </div>
             <button class="show-more-btn" id="show-more-apps" type="button">
               + more <span class="show-more-arrow">▾</span>
@@ -98,76 +102,7 @@
         </div>
       </div></div>
     </section>
-    <section class="panel" id="skills">
-      <div class="book-page"><div class="page-inner">
-        <div class="skills-header">
-          <div class="skills-header-text">
-            <p class="meme">Fruits of Labour…</p>
-            <h2>Skills</h2>
-            <p class="skills-subtitle">Jack of just enough trades. I learn exactly what a problem needs, solve it, then move to the next one.</p>
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">// infrastructure</p>
-          <div class="skills-wrap">
-            <span class="chip" data-info="Container platform used to run all self-hosted apps in isolated, portable environments.">Docker</span>
-            <span class="chip" data-info="Reverse proxy handling internal domain routing and automatic HTTPS for all hosted apps.">Caddy</span>
-            <span class="chip" data-info="Internal DNS server resolving clean domain names like tv.loc across the LAN instead of raw IPs.">Technitium</span>
-            <span class="chip" data-info="LAN configuration, VLAN and interVLAN configuration, and internal routing across the company network.">Networking</span>
-            <span class="chip" data-info="Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.">Linux</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">// automation & scripting</p>
-          <div class="skills-wrap">
-            <span class="chip" data-info="Advanced formula-driven sheets tracked network downtime, patient journeys, print jobs, and vendor tickets across units.">Excel Automation</span>
-            <span class="chip" data-info="Windows Server AD managing user accounts, permissions, and authentication across the organization.">Active Directory</span>
-            <span class="chip" data-info="GPO-based automation for startup scripts, temp file cleanup, shutdown logging, and print access control.">Group Policy</span>
-            <span class="chip" data-info="Used for scripting, scheduled tasks, and server maintenance automation.">Bash</span>
-            <span class="chip" data-info="Workflow automation tool. Used in the Telegram notification trigger during ticket creation project.">n8n</span>
 
-            
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">// evaluated, selected and deployed</p>
-          <div class="skills-wrap">
-            <span class="chip" data-info="Ticketing system centralising all IT service requests with tracking and accountability.">OsTicket</span>
-            <span class="chip" data-info="IT asset management tracking all hardware and consumables — who has it, when assigned, full history.">Snipe-IT</span>
-            <span class="chip" data-info="Document automation platform turning repetitive manual drafting into guided form-based workflows.">Docassemble</span>
-            <span class="chip" data-info="CRM deployed for front desk call logging — searchable history of all incoming calls.">EspoCRM</span>
-            <span class="chip" data-info="Document management system with OCR — digitises and indexes physical documents for instant search.">Paperless-ngx</span>
-            <span class="chip" data-info="Media server used to stream signage content across company TVs throughout the company premises.">Jellyfin</span>
-            <span class="chip" data-info="Docker container management interface for monitoring and controlling running services.">Dockhand</span>
-            <span class="chip" data-info="Self-hosted Bitwarden-compatible password manager for secure credential sharing.">Vaultwarden</span>
-            <span class="chip" data-info="Self-hosted photo and video backup solution replacing Google Photos.">Immich</span>
-            <span class="chip" data-info="Self-hosted bookmark manager for saving and organising internal and external links.">Linkwarden</span>
-            <span class="chip" data-info="Self-hosted file server providing FTP-like access for internal file sharing.">Copyparty</span>
-            <span class="chip" data-info="Collection of useful developer and IT utilities, self-hosted for internal use.">IT-Tools</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">// tools & integrations</p>
-          <div class="skills-wrap">
-            <span class="chip" data-info="Business intelligence tool for building internal dashboards and reports from live data.">Metabase</span>
-            <span class="chip" data-info="No-code database interface layered over existing databases for easy data viewing and editing.">NocoDB</span>
-            <span class="chip" data-info="Version control for tracking configuration files, scripts, and deployment changes.">Git</span>
-            <span class="chip" data-info="Used to build notification bots — started with service request alerts, expanded to multiple integrations.">Telegram Integration</span>
-            <span class="chip" data-info="Entry point for service requests before osTicket — still used for specific intake workflows.">Google Forms</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">// healthcare systems</p>
-          <div class="skills-wrap">
-            <span class="chip" data-info="Hospital Management Information System. Provided training, handled issues and vendor co-ordination.">HMIS</span>
-            <span class="chip" data-info="Picture Archiving and Communication System. Vendor co-ordination for integration, maintain operational status, backup and report generation.">PACS</span>
-            <span class="chip" data-info="Electronic Health Record. Vendor co-ordination and report generation.">EHR</span>
-            <span class="chip" data-info="Multiple vendor co-ordination during integration process. Provided user training and report generation.">Lab Equipment Integration</span>
-            <span class="chip" data-info="Created formula-driven sheets to solve niche hinderances and report submission in Excel. Timely presentations in PowerPoint.">Microsoft 365</span>
-          </div>
-        </div>
-      </div></div>
-    </section>
     <section class="panel" id="projects">
       <div class="book-page"><div class="page-inner">
         <p class="meme">Problems that needed fixing…</p>
@@ -333,7 +268,7 @@
           <div class="card">
   <div class="card-collapsed">
     <h3>Visitor Register, Digitized</h3>
-    <p>Visitor entries were logged on registers — illegible, easy to lose, and impossible to search. Built a digital visitor register with signatures, timestamps, and role-based access.</p>
+    <p>Visitor entries were logged on paper — illegible, easy to lose, and impossible to search. Built a digital visitor register with signatures, timestamps, and role-based access.</p>
     <div class="stack">Saltcorn · Docker · PostgreSQL</div>
     <button class="card-link" type="button">View project <span class="arrow">→</span></button>
   </div>
@@ -366,9 +301,85 @@
         </div>
       </div></div>
     </section>
+
+        <section class="panel" id="skills">
+      <div class="book-page"><div class="page-inner">
+        <div class="skills-header">
+          <div class="skills-header-text">
+            <p class="meme">Fruits of Labour…</p>
+            <h2>Skills</h2>
+            <p class="skills-subtitle">Jack of just enough trades. I learn exactly what a problem needs, solve it, then move to the next one.</p>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// infrastructure</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Container platform used to run all self-hosted apps in isolated, portable environments.">Docker</span>
+            <span class="chip" data-info="Reverse proxy handling internal domain routing and automatic HTTPS for all hosted apps.">Caddy</span>
+            <span class="chip" data-info="Internal DNS server resolving clean domain names like tv.loc across the LAN instead of raw IPs.">Technitium</span>
+            <span class="chip" data-info="LAN configuration, VLAN and interVLAN configuration, and internal routing across the company network.">Networking</span>
+<!--        <span class="chip" data-info="Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.">Linux</span>  -->
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// automation & scripting</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Advanced formula-driven sheets tracked network downtime, patient journeys, print jobs, and vendor tickets across units.">Excel Automation</span>
+            <span class="chip" data-info="Windows Server AD managing user accounts, permissions, and authentication across the organization.">Active Directory</span>
+            <span class="chip" data-info="GPO-based automation for startup scripts, temp file cleanup, shutdown logging, and print access control.">Group Policy</span>
+            <span class="chip" data-info="Used for scripting, scheduled tasks, and server maintenance automation.">Bash</span>
+            <span class="chip" data-info="Workflow automation tool. Used in the Telegram notification trigger during ticket creation project.">n8n</span>
+
+            
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// evaluated, selected and deployed</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Self-hosted low-code platform used to build the digital visitor register — forms, signature capture, and role-based access.">Saltcorn</span>
+            <span class="chip" data-info="Open-source automation platform used for workflow orchestration and integrations between self-hosted apps.">Active Pieces</span>
+            <span class="chip" data-info="Lightweight self-hosted monitoring tool tracking server health and resource usage across the infrastructure.">Beszel</span>
+            <span class="chip" data-info="Unified dashboard bringing all self-hosted apps into a single, organised homepage.">Organizr</span>
+            <span class="chip" data-info="Ticketing system centralising all IT service requests with tracking and accountability.">OsTicket</span>
+            <span class="chip" data-info="IT asset management tracking all hardware and consumables — who has it, when assigned, full history.">Snipe-IT</span>
+            <span class="chip" data-info="Document automation platform turning repetitive manual drafting into guided form-based workflows.">Docassemble</span>
+            <span class="chip" data-info="CRM deployed for front desk call logging — searchable history of all incoming calls.">EspoCRM</span>
+            <span class="chip" data-info="Document management system with OCR — digitises and indexes physical documents for instant search.">Paperless-ngx</span>
+            <span class="chip" data-info="Media server used to stream signage content across company TVs throughout the company premises.">Jellyfin</span>
+            <span class="chip" data-info="Docker container management interface for monitoring and controlling running services.">Dockhand</span>
+            <span class="chip" data-info="Self-hosted Bitwarden-compatible password manager for secure credential sharing.">Vaultwarden</span>
+            <span class="chip" data-info="Self-hosted photo and video backup solution replacing Google Photos.">Immich</span>
+            <span class="chip" data-info="Self-hosted bookmark manager for saving and organising internal and external links.">Linkwarden</span>
+            <span class="chip" data-info="Self-hosted file server providing FTP-like access for internal file sharing.">Copyparty</span>
+            <span class="chip" data-info="Collection of useful developer and IT utilities, self-hosted for internal use.">IT-Tools</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// tools & integrations</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Business intelligence tool for building internal dashboards and reports from live data.">Metabase</span>
+            <span class="chip" data-info="No-code database interface layered over existing databases for easy data viewing and editing.">NocoDB</span>
+            <span class="chip" data-info="Version control for tracking configuration files, scripts, and deployment changes.">Git</span>
+            <span class="chip" data-info="Used to build notification bots — started with service request alerts, expanded to multiple integrations.">Telegram Integration</span>
+            <span class="chip" data-info="Entry point for service requests before osTicket — still used for specific intake workflows.">Google Forms</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">// healthcare systems</p>
+          <div class="skills-wrap">
+            <span class="chip" data-info="Hospital Management Information System. Provided training, handled issues and vendor co-ordination.">HMIS</span>
+            <span class="chip" data-info="Picture Archiving and Communication System. Vendor co-ordination for integration, maintain operational status, backup and report generation.">PACS</span>
+            <span class="chip" data-info="Electronic Health Record. Vendor co-ordination and report generation.">EHR</span>
+            <span class="chip" data-info="Multiple vendor co-ordination during integration process. Provided user training and report generation.">Lab Equipment Integration</span>
+            <span class="chip" data-info="Created formula-driven sheets to solve niche hinderances and report submission in Excel. Timely presentations in PowerPoint.">Microsoft 365</span>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
     <section class="panel" id="resume">
       <div class="book-page"><div class="page-inner">
-        <p class="meme">15 years, condensed…</p>
+        <p class="meme">A career, condensed…</p>
         <div class="resume-header">
           <div class="resume-header-text">
             
@@ -386,7 +397,7 @@
             <p class="timeline-role">Sr. Executive — IT</p>
             <p class="timeline-company">Neotia Bhagirathi Woman And Child Care Centre, Guwahati</p>
             <p class="timeline-unit">A Unit of Ambuja Neotia Healthcare Venture Limited</p>
-            <p class="timeline-desc">Architected and deployed a self-hosted ecosystem and now maintains 19 Docker-based applications replacing paid SaaS tools — covering ticketing, asset management, document automation, DNS, media signage, CRM, and file management. Manages firewall, HMIS/PACS integration, and workflow automation across the facility.</p>
+            <p class="timeline-desc">Architected and deployed a self-hosted ecosystem and now maintains <span class="app-count"></span> Docker-based applications replacing paid SaaS tools — covering ticketing, asset management, document automation, DNS, media signage, CRM, and file management. Manages firewall, HMIS/PACS integration, and workflow automation across the facility.</p>
           </div>
 
           <div class="timeline-item">
@@ -399,7 +410,7 @@
 
           <div class="career-footer">
             <button class="career-toggle" id="career-toggle" type="button">
-              15+ years in IT across healthcare, training, and infrastructure roles
+              A decade-plus journey across healthcare, training, and IT-infrastructure roles
               <span class="career-arrow">▾</span>
             </button>
             <div class="career-extra" id="career-extra">
@@ -434,8 +445,9 @@
         <p class="body-text">Open to interesting problems, collaborations, and conversations.</p>
         <div class="contact-row">
           <a id="contact-email" class="c-link">✉ Email</a>
-          <a id="linkedin" class="c-link" target="_blank" rel="noopener">LinkedIn</a>
-          <a id="github" class="c-link" target="_blank" rel="noopener">GitHub</a>
+          <a id="linkedin" class="c-link" target="_blank" rel="noopener">🔗 LinkedIn</a>
+          <a id="github" class="c-link" target="_blank" rel="noopener">⚙ GitHub</a>
+          
         </div>
       </div></div>
     </section>
