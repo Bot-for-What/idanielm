@@ -205,6 +205,10 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
 
   /* ── SKILLS CHIP INFO ── */
   const chipInfo = {
+    'Saltcorn':             'Self-hosted low-code platform used to build the digital visitor register — forms, signature capture, and role-based access.',
+    'Active Pieces':        'Open-source automation platform used for workflow orchestration and integrations between self-hosted apps.',
+    'Beszel':               'Lightweight self-hosted monitoring tool tracking server health and resource usage across the infrastructure.',
+    'Organizr':             'Unified dashboard bringing all self-hosted apps into a single, organised homepage.',
     'Docker':               'Container platform used to run all self-hosted apps in isolated, portable environments.',
     'Linux':                'Primary OS for all self-hosted infrastructure. Ubuntu-based server environment.',
     'Caddy':                'Reverse proxy handling internal domain routing and automatic HTTPS for all hosted apps.',
@@ -246,57 +250,82 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
     activeBubble = null;
   }
 
-  function showBubble(chip) {
-    clearBubbles();
-    const name = chip.textContent.trim();
-    const info = chipInfo[name];
-    if (!info) return;
-    const bubble = document.createElement('div');
-    bubble.className = 'chip-bubble';
-    bubble.textContent = info;
-    chip.appendChild(bubble);
-    chip.classList.add('highlighted');
-    activeBubble = bubble;
+function showBubble(chip) {
+  clearBubbles();
+  const name = chip.textContent.trim();
+  const info = chipInfo[name];
+  if (!info) return;
+  const bubble = document.createElement('div');
+  bubble.className = 'chip-bubble';
+  bubble.textContent = info;
+  chip.appendChild(bubble);
+  chip.classList.add('highlighted');
+  activeBubble = bubble;
 
-    requestAnimationFrame(() => {
-      const chipRect = chip.getBoundingClientRect();
-      const bubbleWidth = bubble.offsetWidth;
-      const bubbleHeight = bubble.offsetHeight;
-      const margin = 16;
+  requestAnimationFrame(() => {
+    const chipRect = chip.getBoundingClientRect();
+    const bubbleWidth = bubble.offsetWidth;
+    const bubbleHeight = bubble.offsetHeight;
+    const margin = 16;
 
-      // Horizontal clamp
-      const center = chipRect.left + chipRect.width / 2;
-      const halfWidth = bubbleWidth / 2;
-      const leftEdge = center - halfWidth;
-      const rightEdge = center + halfWidth;
-      let shift = 0;
-      if (leftEdge < margin) {
-        shift = margin - leftEdge;
-      } else if (rightEdge > window.innerWidth - margin) {
-        shift = (window.innerWidth - margin) - rightEdge;
-      }
-      bubble.style.left = `calc(50% + ${shift}px)`;
-      bubble.style.setProperty('--arrow-shift', `${shift}px`);
+    const center = chipRect.left + chipRect.width / 2;
+    const halfWidth = bubbleWidth / 2;
+    let leftEdge = center - halfWidth;
+    let rightEdge = center + halfWidth;
+    let shift = 0;
 
-      // Vertical clamp — bubble sits above the chip
-      const bubbleTop = chipRect.top - bubbleHeight - 10;
-      if (bubbleTop < margin) {
-        const scrollAdjust = bubbleTop - margin;
-        window.scrollBy({ top: scrollAdjust, behavior: 'smooth' });
-      }
+    // Clamp against the panel's own bounding box (page-inner clips overflow)
+    const panel = chip.closest('.page-inner');
+    const panelRect = panel ? panel.getBoundingClientRect() : { left: 0, right: window.innerWidth };
+    let boundLeft = Math.max(margin, panelRect.left + margin);
+let boundRight = Math.min(window.innerWidth - margin, panelRect.right - margin);
+if (boundRight - boundLeft < bubbleWidth) {
+  // Not enough room — fall back to viewport-only clamping
+  boundLeft = margin;
+  boundRight = window.innerWidth - margin;
+}
 
-      requestAnimationFrame(() => bubble.classList.add('visible'));
-    });
+    if (leftEdge < boundLeft) {
+      shift = boundLeft - leftEdge;
+    } else if (rightEdge > boundRight) {
+      shift = boundRight - rightEdge;
+    }
 
-    setTimeout(() => {
-      bubble.classList.remove('visible');
-      setTimeout(() => {
-        bubble.remove();
-        chip.classList.remove('highlighted');
-        if (activeBubble === bubble) activeBubble = null;
-      }, 200);
-    }, 4000);
+    // About panel image-column clamp (unchanged)
+const imgWrap = document.querySelector('.about-image-wrap');
+if (imgWrap && chip.closest('#about')) {
+  const imgRect = imgWrap.getBoundingClientRect();
+  const verticallyOverlapping = chipRect.top < imgRect.bottom && chipRect.bottom > imgRect.top;
+  const sideBySide = imgRect.right < window.innerWidth * 0.6; // rough check that image isn't full-width/stacked
+
+  if (verticallyOverlapping && sideBySide) {
+    const proposedLeftEdge = leftEdge + shift;
+    if (proposedLeftEdge < imgRect.right + margin) {
+      shift = (imgRect.right + margin) - leftEdge;
+    }
   }
+}
+    bubble.style.left = `calc(50% + ${shift}px)`;
+    bubble.style.setProperty('--arrow-shift', `${shift}px`);
+
+    const bubbleTop = chipRect.top - bubbleHeight - 10;
+    if (bubbleTop < margin) {
+      const scrollAdjust = bubbleTop - margin;
+      window.scrollBy({ top: scrollAdjust, behavior: 'smooth' });
+    }
+
+    requestAnimationFrame(() => bubble.classList.add('visible'));
+  });
+
+  setTimeout(() => {
+    bubble.classList.remove('visible');
+    setTimeout(() => {
+      bubble.remove();
+      chip.classList.remove('highlighted');
+      if (activeBubble === bubble) activeBubble = null;
+    }, 200);
+  }, 4000);
+}
 
   document.querySelectorAll('#skills .chip').forEach(chip => {
     chip.addEventListener('click', (e) => {
@@ -309,25 +338,13 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
     });
   });
 
-  document.querySelectorAll('.app-chip').forEach(appChip => {
-    appChip.style.cursor = 'pointer';
-    appChip.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const name = appChip.textContent.trim();
-      const skillsChips = document.querySelectorAll('#skills .chip');
-      let targetChip = null;
-      skillsChips.forEach(chip => {
-        if (chip.textContent.trim() === name) targetChip = chip;
-      });
-      if (targetChip) {
-        targetChip.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-        setTimeout(() => showBubble(targetChip), 900);
-      } else {
-        document.getElementById('skills').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => showBubble(appChip), 900);
-      }
-    });
+document.querySelectorAll('.app-chip').forEach(appChip => {
+  appChip.style.cursor = 'pointer';
+  appChip.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showBubble(appChip);
   });
+});
 
   document.addEventListener('click', () => clearBubbles());
 
@@ -373,8 +390,8 @@ document.querySelectorAll('.card-link-hide').forEach(btn => {
       link.href = `https://${hub}/${git}`;
     }
   })();
-  
-    /* ── ABOUT FULL STORY TOGGLE ── */
+
+  /* ── ABOUT FULL STORY TOGGLE ── */
 const aboutToggle  = document.getElementById('about-toggle');
 const aboutCopy     = document.getElementById('about-copy');
 const aboutHook     = document.getElementById('about-hook');
@@ -394,5 +411,13 @@ if (aboutToggle && aboutCopy && aboutHook) {
     }
   });
 }
+
+/* ── DYNAMIC APP COUNT ── */
+(() => {
+  const count = document.querySelectorAll('#about .app-chip').length;
+  document.querySelectorAll('.app-count').forEach(el => {
+    el.textContent = count;
+  });
+})();
 
 })();
