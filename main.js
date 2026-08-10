@@ -419,5 +419,43 @@ if (aboutToggle && aboutCopy && aboutHook) {
     el.textContent = count;
   });
 })();
+/* ── FIRST-TIME CHIP HINTS ── */
+(() => {
+function flashChipsOnce(selector) {
+  document.querySelectorAll(selector).forEach(chip => {
+    if (chip.classList.contains('app-chip-hidden')) return; // skip chips hidden behind "+ more"
+    chip.classList.add('flash-hint');
+    chip.addEventListener('animationend', () => {
+      chip.classList.remove('flash-hint');
+    }, { once: true });
+  });
+}
+
+if (!localStorage.getItem('aboutHintSeen')) {
+  ScrollTrigger.create({
+    trigger: '.app-chips',
+    start: 'top 85%',
+    once: true,
+    onEnter: () => {
+      const hint = document.getElementById('chip-hint');
+      if (hint) hint.classList.add('show');
+      flashChipsOnce('#about .app-chip');
+      localStorage.setItem('aboutHintSeen', 'true');
+    }
+  });
+}
+
+  if (!localStorage.getItem('skillsHintSeen')) {
+    ScrollTrigger.create({
+      trigger: '#skills',
+      start: 'top 90%',
+      once: true,
+      onEnter: () => {
+        flashChipsOnce('#skills .chip');
+        localStorage.setItem('skillsHintSeen', 'true');
+      }
+    });
+  }
+})();
 
 })();
