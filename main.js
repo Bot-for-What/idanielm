@@ -445,17 +445,19 @@ if (!localStorage.getItem('aboutHintSeen')) {
   });
 }
 
-  if (!localStorage.getItem('skillsHintSeen')) {
-    ScrollTrigger.create({
-      trigger: '#skills',
-      start: 'top 90%',
-      once: true,
-      onEnter: () => {
+if (!localStorage.getItem('skillsHintSeen')) {
+  ScrollTrigger.create({
+    trigger: '#skills',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      setTimeout(() => {
         flashChipsOnce('#skills .chip');
         localStorage.setItem('skillsHintSeen', 'true');
-      }
-    });
-  }
+      }, 1500);
+    }
+  });
+}
 })();
 
 })();
