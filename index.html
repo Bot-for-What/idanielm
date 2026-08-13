@@ -290,14 +290,41 @@
     <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
   </div>
 </div>
-          <!-- Comment out placeholder card if Projects are even -->
+
+          <!-- Project 8 -->
+          <div class="card">
+  <div class="card-collapsed">
+    <h3>Find Someone Fast, From Anywhere</h3>
+    <p>HR had no way to pull up an employee's emergency contact off-network, when speed mattered most. Built a Telegram-based lookup tool, backed by a locally isolated database with zero internet exposure.</p>
+    <div class="stack">NocoDB · PostgreSQL · Python · Docker</div>
+    <button class="card-link" type="button">View project <span class="arrow">→</span></button>
+  </div>
+  <div class="card-detail">
+    <div class="card-detail-inner">
+      <div class="card-detail-text-col">
+        <h3>Find Someone Fast, From Anywhere</h3>
+        <p class="card-section-label">// what was broken</p>
+        <p class="card-detail-text">HR maintained employee emergency contact details, but had no way to access them remotely during an actual emergency. Every existing internal tool ran strictly on the local network — deliberately, given the sensitivity of the data — leaving no safe way to check a record from outside their systems when it mattered most.</p>
+        <p class="card-section-label">// what was built</p>
+        <p class="card-detail-text">A self-hosted Telegram bot backed by its own isolated PostgreSQL and NocoDB stack. The bot only makes outbound connections to Telegram — no ports opened, no inbound exposure — and queries the database entirely over the internal Docker network. Only authorized users manages records through NocoDB locally as standard practice; the bot only ever reads, from an explicit allowlist of fields, and every search is logged. Access is allowlist-based and fail-closed: unlisted users are denied by default, with admin able to grant or revoke access themselves, no redeploys needed.</p>
+        <div class="stack" style="margin-top:16px;">NocoDB · PostgreSQL · Python · Docker</div>
+      </div>
+      <div class="card-detail-image-col">
+        <img src="assets/images/projects/P8/hr-lookup.png" alt="HR Profile Lookup Telegram bot search" class="card-screenshot" loading="lazy" onerror="this.outerHTML='<div class=&quot;card-screenshot-placeholder&quot;>hr-lookup.png</div>'" />
+        <img src="assets/images/projects/P8/hr-lookup-2.png" alt="NocoDB employee records interface" class="card-screenshot" loading="lazy" onerror="this.outerHTML='<div class=&quot;card-screenshot-placeholder&quot;>hr-lookup-2.png</div>'" />
+      </div>
+    </div>
+    <button class="card-link card-link-hide" type="button">Hide details <span class="arrow">→</span></button>
+  </div>
+</div>
+          <!-- Comment out placeholder card if Projects are even
           <div class="card placeholder-card">
             <div class="card-collapsed">
               <h3>More Solutions Coming Soon</h3>
               <p>Currently untangling the next one. Check back soon, or peek at the <a href="#about" style="color: var(--accent); text-decoration: underline;">running list</a> of what's live right now.</p>
               <div class="stack" style="text-align: right;">// IN PROGRESS..</div>
             </div>
-          </div>
+          </div>-->
         </div>
       </div></div>
     </section>
